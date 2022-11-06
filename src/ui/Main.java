@@ -52,8 +52,9 @@ public class Main{
 	}
 
     public void executeOption(int option){
-        int typeOfUser = 0;
-        String msj, name, imageURL, id, nickname= "";
+        int typeOfUser, duration, typeOfContent, typeOfGenreSong, typeOfCategoryPodcast = 0;
+        double price = 0;
+        String msj, name, imageURL, id, nickname, contentname, album, description= "";
         Calendar vinculationDate = dateToday();
     
 
@@ -122,6 +123,109 @@ public class Main{
             }
             
             break;
+            case 3:
+            System.out.println("You are know adding a new song or a podcast");
+            System.out.println("Please write the name of the artist or content creator: ");
+            name = reader.next();
+            System.out.println("Write the name of the content");
+            contentname = reader.next();
+            System.out.println("Type the URL of the image that represents the content");
+            imageURL = reader.next();
+            System.out.println("Write the duration of the content");
+            duration = reader.nextInt();
+            System.out.println("Choose the type of content you are adding:");
+            System.out.println("1. Song \n"+
+            "2. Podcast");
+            typeOfContent = reader.nextInt();
+            switch(typeOfContent){
+                case 1:
+                System.out.println("Choose the genre of the song you are adding: ");
+                System.out.println("1. Rock \n" +
+                "2. Pop \n" +
+                "3. Trap \n"+
+                "4. House");
+                typeOfGenreSong = reader.nextInt();
+                if(typeOfGenreSong == 1){
+                    System.out.println("Write the name of the album");
+                    album = reader.next(); 
+                    System.out.println("Write the price of the song");
+                    price= reader.nextDouble();
+                    System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.ROCK));
+
+                 }else if(typeOfGenreSong == 2){
+                    System.out.println("Write the name of the album");
+                    album = reader.next(); 
+                    System.out.println("Write the price of the song");
+                    price= reader.nextDouble();
+                    System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.POP));
+
+                 }else if(typeOfGenreSong == 3){
+                    System.out.println("Write the name of the album");
+                    album = reader.next(); 
+                    System.out.println("Write the price of the song");
+                    price= reader.nextDouble();
+                    System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.TRAP));
+
+                }else if(typeOfGenreSong == 4){
+                    System.out.println("Write the name of the album");
+                    album = reader.next(); 
+                    System.out.println("Write the price of the song");
+                    price= reader.nextDouble();
+                    System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.HOUSE));
+
+                 }else{
+                    System.out.println("Sorry, this is not a valid option");
+
+                }
+
+                break;
+                case 2:
+                System.out.println("Choose the genre of the podcast you are adding: ");
+                System.out.println("1. Politics \n" +
+                "2. Entertainment \n" +
+                "3. Videogames \n"+
+                "4. Fashion");
+                typeOfCategoryPodcast = reader.nextInt();
+                if(typeOfCategoryPodcast == 1){
+                    System.out.println("Write the name of the podcast");
+                    album = reader.next(); 
+                    System.out.println("Write the description of the podcast");
+                    description= reader.next();
+                    System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.POLITICS));
+
+                 }else if(typeOfCategoryPodcast == 2){
+                    System.out.println("Write the name of the podcast");
+                    album = reader.next(); 
+                    System.out.println("Write the description of the podcast");
+                    description= reader.next();
+                    System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.ENTERTAINMENT));
+
+                 }else if(typeOfCategoryPodcast == 3){
+                    System.out.println("Write the name of the podcast");
+                    album = reader.next(); 
+                    System.out.println("Write the description of the podcast");
+                    description= reader.next();
+                    System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.VIDEOGAMES));
+
+                 }else if(typeOfCategoryPodcast == 4){
+                    System.out.println("Write the name of the podcast");
+                    album = reader.next(); 
+                    System.out.println("Write the description of the podcast");
+                    description= reader.next();
+                    System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.FASHION));
+
+                 }else{
+
+                 }
+                break;
+                default:
+
+                break;
+
+            }
+            
+
+            
 
         }
     }
