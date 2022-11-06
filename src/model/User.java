@@ -1,19 +1,22 @@
 package model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 
 public abstract class User {
-    private String nickname;
-    private String id;
-    private Date vinculationDate;
+    private Calendar vinculationDate;
+
     
-    public User(String nickname, String id, Date vinculationDate){
-        this.nickname = nickname;
-        this.id = id;
+    public User(Calendar vinculationDate){
+
         this.vinculationDate = vinculationDate; 
     }
 
-    public abstract String addSong(); 
+    
+
+    public Calendar getVinculationDate(){
+        return this.vinculationDate;
+    }
+
     
 }

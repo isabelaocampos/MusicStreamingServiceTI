@@ -1,5 +1,13 @@
 package model;
 
-public class ContentCreator extends Producer {
-    
+import java.util.Calendar;
+
+public class ContentCreator extends UserProducer {
+
+    public ContentCreator(String nickname, String imageURL, Calendar vinculationDate) {
+        super(nickname, imageURL, vinculationDate);
+        
+    }
+
+  
 }

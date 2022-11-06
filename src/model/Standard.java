@@ -1,9 +1,10 @@
 package model;
 
-import java.util.Date;
+import java.util.Calendar;
 
-public class Standard extends User {
-    public Standard(String nickname, String id, Date vinculationDate) {
+public class Standard extends UserConsumer {
+
+    public Standard(String nickname, String id, Calendar vinculationDate) {
         super(nickname, id, vinculationDate);
     
     }
@@ -11,7 +12,7 @@ public class Standard extends User {
     public static int TOTAL_SONGS_PER_STANDART = 100;
     @Override
     public String addSong() {
-        // TODO Auto-generated method stub
+
         return null;
     }
 

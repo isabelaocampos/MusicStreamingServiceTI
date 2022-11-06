@@ -1,5 +1,13 @@
 package model;
 
-public class Artist extends Producer{
+import java.util.Calendar;
+
+public class Artist extends UserProducer{
+
+    public Artist(String nickname, String imageURL, Calendar vinculationDate) {
+        super(nickname, imageURL, vinculationDate);
+    }
+
+   
     
 }
