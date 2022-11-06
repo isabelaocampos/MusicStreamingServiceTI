@@ -53,17 +53,18 @@ public class Main{
 
     public void executeOption(int option){
         int typeOfUser = 0;
-        String msj, name, imageURL= "";
+        String msj, name, imageURL, id, nickname= "";
+        Calendar vinculationDate = dateToday();
     
 
         switch(option){
             case 1: 
-            Calendar vinculationDate = dateToday();
+            
             System.out.println("You are about to register a producer, artist or content creator");
             System.out.println("Choose the type of user you are about to register: ");
             System.out.println("1. Artist \n" +
             "2. Producer \n" + 
-            "3. Content Creator \n");
+            "3. Content Creator");
             typeOfUser = reader.nextInt();
             if(typeOfUser == 1){
                 System.out.println("Write the name of the artist:");
@@ -98,9 +99,40 @@ public class Main{
                 System.out.println("Invalid Option");
 
             }
-            
+
             break;
             case 2:
+            
+            System.out.println("You are about to register an user, it can be Standard or Premium");
+            System.out.println("Choose the type of user you are about to register: ");
+            System.out.println("1. Standard \n" +
+            "2. Premium");
+            typeOfUser = reader.nextInt();
+            if(typeOfUser == 1){
+                System.out.println("Write the nickname of the user:");
+				nickname = reader.next();
+				System.out.println("Write the id of the user: ");
+				id = reader.next();
+
+				msj = controller.addUserConsumer(nickname,id,vinculationDate, TypeOfUserConsumer.STANDARD);
+				System.out.println(msj);
+
+
+            }else if(typeOfUser == 2){
+                System.out.println("Write the nickname of the user:");
+				nickname = reader.next();
+				System.out.println("Write the id of the user: ");
+				id = reader.next();
+
+				msj = controller.addUserConsumer(nickname,id,vinculationDate, TypeOfUserConsumer.PREMIUM);
+				System.out.println(msj);
+
+            }else{
+                System.out.println("Invalid Option");
+
+            }
+            
+            break;
 
         }
     }
