@@ -40,7 +40,7 @@ public class Main{
 		int option = 0; 
 		System.out.println("<<<<< Welcome to NeoTunes your #1 music streaming system >>>>>");
 		System.out.println(
-				"1. Register producers, artists and content creators \n" +
+				"1. Register producer users, artists and content creators.\n" +
 				"2. Register standart users and premium users \n" +
 				"3. Register song and podcasts \n" + 
                 "4. Create a playlist \n" +
@@ -63,8 +63,7 @@ public class Main{
             System.out.println("You are about to register a producer, artist or content creator");
             System.out.println("Choose the type of user you are about to register: ");
             System.out.println("1. Artist \n" +
-            "2. Producer \n" + 
-            "3. Content Creator");
+            "2. Content Creator");
             typeOfUser = reader.nextInt();
             if(typeOfUser == 1){
                 System.out.println("Write the name of the artist:");
@@ -77,16 +76,6 @@ public class Main{
 
 
             }else if(typeOfUser == 2){
-                System.out.println("Write the name of the producer:");
-				name = reader.next();
-				System.out.println("Write the URL of the image that represents the producer the best: ");
-				imageURL = reader.next();
-				
-				msj = controller.addUserProducer(name,vinculationDate,imageURL, TypeOfUserProducer.PRODUCER);
-				System.out.println(msj);
-
-
-            }else if(typeOfUser == 3){
                 System.out.println("Write the name of the content creator:");
 				name = reader.next();
 				System.out.println("Write the URL of the image that represents the content creator the best: ");

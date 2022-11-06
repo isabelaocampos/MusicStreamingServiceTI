@@ -39,11 +39,6 @@ public class Controller {
             msj = "Artist added successfully";
 
             break;
-            case PRODUCER:
-            users.add(new Producer(name, imageURL, vinculationDate));
-            msj = "Producer added successfully";
-
-            break;
             case CONTENTCREATOR:
             users.add(new ContentCreator(name, imageURL, vinculationDate));
             msj = "Content creator added successfully";
@@ -76,12 +71,12 @@ public class Controller {
         
         switch(typeOfUserConsumer){
             case STANDARD:
-            users.add(new Artist(nickname, id,vinculationDate));
+            users.add(new Standard(nickname, id,vinculationDate));
             msj = "User standard added successfully";
 
             break;
             case PREMIUM:
-            users.add(new Producer(nickname, id, vinculationDate));
+            users.add(new Premium(nickname, id, vinculationDate));
             msj = "Premium user added successfully";
 
             break;
