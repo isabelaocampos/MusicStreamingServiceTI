@@ -92,18 +92,19 @@ public class Playlist {
              return 0;
         }   
     }
+    
     /**
-     * searchAudio: this method searh a audio in the matriz.
-     * @param name: String: the name of the audio
-     * @return search : a boolean of found or not found. 
+     * searchContent: boolean: This method search for content, such as a song or a podcast.
+     * @param contentname: String: This parameter is the name of the content we are searching.
+     * @return: search: boolean: The return of the method is a boolean.
      */
-    public boolean searchAudio(String name) {
+    public boolean searchContent(String contentname) {
 
         ProducerContent obj = null;
         boolean search = false;
         if (audios != null) {
             for (int i = 0; i < audios.size() && !search; i++) {
-                if (audios.get(i).getContentName().equalsIgnoreCase(name)) {
+                if (audios.get(i).getContentName().equalsIgnoreCase(contentname)) {
                     obj = audios.get(i);
                     search = true;
                 }

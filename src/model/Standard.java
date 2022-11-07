@@ -25,7 +25,7 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
             }else{
                 if(Aplaylist.typePlaylist() == 1){
                     if(Aplaylist.typePlaylist()==typeAudio){
-                        boolean audiorepit= Aplaylist.searchAudio(contentname);
+                        boolean audiorepit= Aplaylist.searchContent(contentname);
                         if(audiorepit == false){
                             Aplaylist.getAudios().add(producerContent);
                             msj="audio added";
@@ -40,7 +40,7 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
                     }
                     if(Aplaylist.typePlaylist()==2){
                         if(Aplaylist.typePlaylist()==typeAudio){
-                            boolean audiorepit= Aplaylist.searchAudio(contentname);
+                            boolean audiorepit= Aplaylist.searchContent(contentname);
                             if(audiorepit == false){
                                 Aplaylist.getAudios().add(producerContent);
                                 msj="audio added";
@@ -55,7 +55,7 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
                     }
                     if(Aplaylist.typePlaylist()==3){
                         
-                            boolean audiorepit= Aplaylist.searchAudio(contentname);
+                            boolean audiorepit= Aplaylist.searchContent(contentname);
                             if(audiorepit == false){
                                 Aplaylist.getAudios().add(producerContent);
                                 msj="audio added";
@@ -78,7 +78,7 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
             msj="dont exist the playslist";
         }
         else{
-            boolean audiorepit=Aplaylist.searchAudio(contentname);
+            boolean audiorepit=Aplaylist.searchContent(contentname);
           if(audiorepit==true){
             Aplaylist.getAudios().remove(producerContent);
             msj="has been removed successfully";

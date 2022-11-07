@@ -38,7 +38,7 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
                  else{
                     if(thePlaylist.typePlaylist()==1){
                         if(thePlaylist.typePlaylist()==typeAudio){
-                            boolean audiorepit=thePlaylist.searchAudio(contentname);
+                            boolean audiorepit=thePlaylist.searchContent(contentname);
                             if(audiorepit== false){
                                 thePlaylist.getAudios().add(producerContent);
                             }
@@ -52,7 +52,7 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
                     }
                     if(thePlaylist.typePlaylist()==2){
                         if(thePlaylist.typePlaylist()==typeAudio){
-                            boolean audiorepit=thePlaylist.searchAudio(contentname);
+                            boolean audiorepit=thePlaylist.searchContent(contentname);
                             if(audiorepit== false){
                                 thePlaylist.getAudios().add(producerContent);
                             }
@@ -66,7 +66,7 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
                     }
                     if(thePlaylist.typePlaylist()==3){
                         
-                            boolean audiorepit=thePlaylist.searchAudio(contentname);
+                            boolean audiorepit=thePlaylist.searchContent(contentname);
                             if(audiorepit == false){
                                 thePlaylist.getAudios().add(producerContent);
                             }
@@ -89,7 +89,7 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
              msj="dont exist the playslist";
         }
         else{
-            boolean audiorepit=thePlaylist.searchAudio(contentname);
+            boolean audiorepit=thePlaylist.searchContent(contentname);
             if(audiorepit==true){
             thePlaylist.getAudios().remove(producerContent);
             msj="has been removed successfully";
@@ -120,6 +120,8 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
 
     }
 
+
+    
     @Override
     public Playlist searchPlaylist(String name) {
         Playlist newPlaylist=null;

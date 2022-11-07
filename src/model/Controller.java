@@ -291,7 +291,15 @@ public class Controller {
         return msj; 
     }
 
-
+    /**
+     * addPlaylist: String: This method creates a playlist for an specific user, there are three types
+     * of playlist: the ones that have just songs, songs and podcasts or just podcasts.
+     * @param nickname: String: This parameter is the identifier of the user that is going to have the new
+     * playlist.
+     * @param playlistName: String: This parameter is the name of the new playlist.
+     * @param option: This parameter helps us sort the type of playlist is getting added.
+     * @return: msj: String: This method returns different types of message.
+     */
     public String addPlaylist(String nickname,String playlistName, int option){
         String msj = "Playlist created successfully";
         UserConsumer user = findUserConsumer(nickname);
@@ -330,9 +338,21 @@ public class Controller {
 
     }
 
-    public String editAudioToPlaylist(int option,String nickname,String namePlaylist, String audio){
+    /**
+     * editAudioToPlaylist: String: This method edits an already created playlist, it can add a song
+     * or podcast to the playlist depending of the type.
+     * @param option: int: This parameter is used to separated if the user is going to add content to 
+     * the playlist or delete it.
+     * @param nickname: String: This parameter is the identifier of the user in the streaming service, is
+     * used to find the playlist the method is going to edit.
+     * @param namePlaylist: String: This parameter is the identifier of the playlist.
+     * @param contentname: String: This parameter is to find the name of the content the user is about to add,
+     * to see if is already in the playlist or not.
+     * @return: msj; String: This method has a message as a return, there are multiple different messages.
+     */
+    public String editAudioToPlaylist(int option,String nickname,String namePlaylist, String contentname){
         String msj = ""; 
-        ProducerContent newAudio = findAudio(audio);
+        ProducerContent newAudio = findAudio(contentname);
 
         if(newAudio == null){
             msj = "Sorry this song already exists";
@@ -356,11 +376,11 @@ public class Controller {
 
                     if(aUser instanceof Standard){
                         Standard newStandart = ((Standard)(aUser));
-                        msj = newStandart.addAudioToPlaylist(namePlaylist, type, newAudio,audio); 
+                        msj = newStandart.addAudioToPlaylist(namePlaylist, type, newAudio,contentname); 
 
                     }else if(aUser instanceof Premium){
                         Premium newPremium = ((Premium)(aUser));
-                        msj = newPremium.addAudioToPlaylist(namePlaylist,type,newAudio, audio);
+                        msj = newPremium.addAudioToPlaylist(namePlaylist,type,newAudio, contentname);
 
                     }else{
                         msj = "Sorry this is not a user consumer";
@@ -370,11 +390,11 @@ public class Controller {
 
                     if(aUser instanceof Standard){
                         Standard newStandart = ((Standard)(aUser));
-                        msj = newStandart.deleteAudioOfPlaylist(newAudio, namePlaylist, audio);
+                        msj = newStandart.deleteAudioOfPlaylist(newAudio, namePlaylist, contentname);
 
                     }else if(aUser instanceof Premium){
                         Premium newPremium = ((Premium)(aUser));
-                        msj = newPremium.deleteAudioOfPlaylist(newAudio, namePlaylist, audio);
+                        msj = newPremium.deleteAudioOfPlaylist(newAudio, namePlaylist, contentname);
 
                     }else{
                         msj = "Sorry this is not a user consumer";
