@@ -2,11 +2,14 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 public class Controller {
 
     private ArrayList<User> users;
     private ArrayList<ProducerContent> content;
+    public static final int ROWS = 6;
+    public static final int COLUMNS = 6;
 
     public Controller(){
         users = new ArrayList<User>(10);
@@ -20,6 +23,80 @@ public class Controller {
 
     public ArrayList<ProducerContent> getContent(){
         return content;
+    }
+
+    public int[][] createMatrix(){
+
+        int matrix[][] = new int[ROWS][COLUMNS];
+        
+        for(int i=0; i<ROWS; i++){
+            for(int j=0; i<COLUMNS; i++){
+                matrix[i][j] = generateNumber();
+            }
+        }
+        return matrix;
+    }
+
+    public int generateNumber(){
+        int num = 0;
+        Random r = new Random();
+        num = (int)(r.nextInt()*9) + 0;
+
+        return num;
+
+    }
+
+    public String generateCode(int option, int[][]matrix){
+        String code =null;
+        switch(option){
+            case 1:
+            for(int i=5;i<0;i--){
+               code+=matrix[i][0];
+            }
+            for(int j=1, h=1;j>4 && h>4;j++,h++){
+               code+=matrix[j][h];
+            }
+            for(int k=5;k<0;k--){
+               code+=matrix[k][5];
+            }
+           break;
+
+           case 2:
+            for(int i=0;i<2;i++){
+               code+=matrix[0][i];
+            }
+            for(int j=1;j<5;j++){
+               code+=matrix[j][2];
+            } 
+            for(int k=5;k<0;k--){
+               code+=matrix[k][3];
+            }
+            for(int u=3;u>5;u++){
+               code+=matrix[0][u];
+            }
+
+            break;
+              
+            case 3:
+            for (int i=5;i>=0;i--){
+               for(int j=5;j>=0;j--){
+                   int sum = i+j;
+                   if (sum%2!=0){
+                       if(sum!=1){
+                           code+=matrix[i][j]+" ";
+                       }
+                   }
+
+               }
+           }
+            break;
+
+
+          }
+
+     return code;
+
+        
     }
    
     /**
@@ -215,6 +292,103 @@ public class Controller {
     }
 
 
+    public String addPlaylist(String nickname,String playlistName, int option){
+        String msj = "Playlist created successfully";
+        UserConsumer user = findUserConsumer(nickname);
+
+        if (user == null) {
+            msj = "Sorry the user doesn't exist, try again";
+
+        }else{
+            if(user instanceof Standard){
+                int [][]matrix= createMatrix();
+                String code= generateCode(option, matrix);
+                Standard standard = ((Standard)(user));
+
+                boolean validation = standard.addPlaylist(playlistName, matrix, code, option);
+                if(validation ==false){
+                  msj="Sorry the playlist already exists";
+                }
+
+            }else if(user instanceof Premium){
+                int [][]matrix=createMatrix();
+                String code= generateCode(option, matrix);
+                Premium premium = ( (Premium)(user) );
+
+                boolean validation = premium.addPlaylist(playlistName, matrix, code, option);
+                if(validation ==false){
+                    msj="Sorry the playlist already exists";
+                }
+
+            }else{
+                msj="this user is not standard or premium";
+            }
+        
+        }
+
+        return msj;
+
+    }
+
+    public String editAudioToPlaylist(int option,String nickname,String namePlaylist, String audio){
+        String msj = ""; 
+        ProducerContent newAudio = findAudio(audio);
+
+        if(newAudio == null){
+            msj = "Sorry this song already exists";
+
+        }else{
+            int type;
+            if(newAudio instanceof Song){
+                type =1;
+
+            }else{
+                type =2;
+            }
+
+
+            User aUser = findUserConsumer(nickname);
+            if(aUser == null){
+                msj = "Sorry this user doesn't exist"; 
+
+            }else{
+                if(option == 1){
+
+                    if(aUser instanceof Standard){
+                        Standard newStandart = ((Standard)(aUser));
+                        msj = newStandart.addAudioToPlaylist(namePlaylist, type, newAudio,audio); 
+
+                    }else if(aUser instanceof Premium){
+                        Premium newPremium = ((Premium)(aUser));
+                        msj = newPremium.addAudioToPlaylist(namePlaylist,type,newAudio, audio);
+
+                    }else{
+                        msj = "Sorry this is not a user consumer";
+                    }
+                }
+                if(option == 2){
+
+                    if(aUser instanceof Standard){
+                        Standard newStandart = ((Standard)(aUser));
+                        msj = newStandart.deleteAudioOfPlaylist(newAudio, namePlaylist, audio);
+
+                    }else if(aUser instanceof Premium){
+                        Premium newPremium = ((Premium)(aUser));
+                        msj = newPremium.deleteAudioOfPlaylist(newAudio, namePlaylist, audio);
+
+                    }else{
+                        msj = "Sorry this is not a user consumer";
+                    }
+
+                }
+            }
+        }
+
+        return msj;
+
+    }
+
+
     //////////////////////////////////////////////////
 
 
@@ -230,6 +404,25 @@ public class Controller {
         for(int i = 0; i < users.size() && !isFound; i++){
             if(((UserProducer) users.get(i)).getName().equalsIgnoreCase(name)){
                 user = (UserProducer) users.get(i);
+                isFound = true;
+            }
+        }
+
+        return user;
+    }
+
+    /**
+     * findUserConsumer: UserConsumer: This method search with the name enter by the user the user standard or premium.
+     * @param name: String: This parameter is the name of the user that we are searching.
+     * @return user: UserConsumer: This method return the position of the user, so we know that the user is registered in
+     * the array.
+     */
+    public UserConsumer findUserConsumer(String nickname){
+        UserConsumer user = null;
+        boolean isFound = false;
+        for(int i = 0; i < users.size() && !isFound; i++){
+            if(((UserConsumer) users.get(i)).getNickName().equalsIgnoreCase(nickname)){
+                user = (UserConsumer) users.get(i);
                 isFound = true;
             }
         }

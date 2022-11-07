@@ -52,9 +52,9 @@ public class Main{
 	}
 
     public void executeOption(int option){
-        int typeOfUser, duration, typeOfContent, typeOfGenreSong, typeOfCategoryPodcast = 0;
+        int typeOfUser, duration, typeOfContent, typeOfGenreSong, typeOfCategoryPodcast, typeOfPlaylist, typeOfEdition = 0;
         double price = 0;
-        String msj, name, imageURL, id, nickname, contentname, album, description= "";
+        String msj, name, imageURL, id, nickname, contentname, album, description, playlistName= "";
         Calendar vinculationDate = dateToday();
     
 
@@ -137,8 +137,8 @@ public class Main{
             System.out.println("1. Song \n"+
             "2. Podcast");
             typeOfContent = reader.nextInt();
-            switch(typeOfContent){
-                case 1:
+
+            if(typeOfContent == 1){
                 System.out.println("Choose the genre of the song you are adding: ");
                 System.out.println("1. Rock \n" +
                 "2. Pop \n" +
@@ -177,9 +177,7 @@ public class Main{
                     System.out.println("Sorry, this is not a valid option");
 
                 }
-
-                break;
-                case 2:
+            }else if(typeOfContent == 2){
                 System.out.println("Choose the genre of the podcast you are adding: ");
                 System.out.println("1. Politics \n" +
                 "2. Entertainment \n" +
@@ -217,15 +215,44 @@ public class Main{
                  }else{
 
                  }
-                break;
-                default:
-
-                break;
-
-            }
-            
+                }else{
+                
+                 msj = "Sorry, an error happen";
+                }
 
             
+            break;
+            case 4: 
+            System.out.println("You are know creating a playlist");
+            System.out.println("Write the user nickname");
+            nickname = reader.next();
+            System.out.println("Write the playlist name");
+            playlistName = reader.next();
+            System.out.println("Choose the type of playlist");
+            System.out.println("1. Just Songs \n" +
+            "2.Just podcasts \n" +
+            "3.Podcast and Songs");
+            typeOfPlaylist = reader.nextInt();
+            System.out.println(controller.addPlaylist(nickname, playlistName, typeOfPlaylist));
+
+            break;
+
+            case 5: 
+            System.out.println("You are know editing a playlist");
+            System.out.println("Write the user nickname");
+            nickname= reader.next();
+            System.out.println("Choose the option you want");
+            System.out.println("1. Add audio to the playlist \n" +
+            "Delete audio of playlist");
+            typeOfEdition = reader.nextInt();
+            System.out.println("Write the playlist name");
+            playlistName = reader.next();
+            System.out.println("Write the name of the audio");
+            contentname = reader.next();
+
+            System.out.println(controller.editAudioToPlaylist(option, nickname, playlistName, playlistName));
+
+            break;
 
         }
     }

@@ -26,7 +26,7 @@ public abstract class UserConsumer extends User{
         return this.id;
     }
 
-    public abstract String addSong(); 
+    //public abstract String addSong(); 
     
     
 }
