@@ -124,21 +124,24 @@ public class Main{
             
             break;
             case 3:
-            System.out.println("You are know adding a new song or a podcast");
-            System.out.println("Please write the name of the artist or content creator: ");
-            name = reader.next();
-            System.out.println("Write the name of the content");
-            contentname = reader.next();
-            System.out.println("Type the URL of the image that represents the content");
-            imageURL = reader.next();
-            System.out.println("Write the duration of the content");
-            duration = reader.nextInt();
-            System.out.println("Choose the type of content you are adding:");
-            System.out.println("1. Song \n"+
-            "2. Podcast");
+            System.out.println("Choose the type of content you are adding: ");
+            System.out.println("1. A song \n" +
+            "2. A podcast");
             typeOfContent = reader.nextInt();
 
             if(typeOfContent == 1){
+                System.out.println("You are know adding a song, please write the name of the artist");
+                name = reader.next();
+                System.out.println("Write the name of the song: ");
+                contentname = reader.next();
+                System.out.println("Write the duration of the song: ");
+                duration = reader.nextInt();
+                System.out.println("Write the url of the image that represents the album: ");
+                imageURL = reader.next();
+                System.out.println("Write the name of the album");
+                album = reader.next(); 
+                System.out.println("Write the price of the song");
+                price= reader.nextDouble();
                 System.out.println("Choose the genre of the song you are adding: ");
                 System.out.println("1. Rock \n" +
                 "2. Pop \n" +
@@ -146,31 +149,15 @@ public class Main{
                 "4. House");
                 typeOfGenreSong = reader.nextInt();
                 if(typeOfGenreSong == 1){
-                    System.out.println("Write the name of the album");
-                    album = reader.next(); 
-                    System.out.println("Write the price of the song");
-                    price= reader.nextDouble();
                     System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.ROCK));
 
-                 }else if(typeOfGenreSong == 2){
-                    System.out.println("Write the name of the album");
-                    album = reader.next(); 
-                    System.out.println("Write the price of the song");
-                    price= reader.nextDouble();
+                }else if(typeOfGenreSong == 2){
                     System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.POP));
 
-                 }else if(typeOfGenreSong == 3){
-                    System.out.println("Write the name of the album");
-                    album = reader.next(); 
-                    System.out.println("Write the price of the song");
-                    price= reader.nextDouble();
+                }else if(typeOfGenreSong == 3){
                     System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.TRAP));
 
                 }else if(typeOfGenreSong == 4){
-                    System.out.println("Write the name of the album");
-                    album = reader.next(); 
-                    System.out.println("Write the price of the song");
-                    price= reader.nextDouble();
                     System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.HOUSE));
 
                  }else{
@@ -178,6 +165,16 @@ public class Main{
 
                 }
             }else if(typeOfContent == 2){
+                System.out.println(" You are know adding a podcast, please write the name of the content creator: ");
+                name= reader.next();
+                System.out.println("Write the name of the podcast: ");
+                contentname = reader.next();
+                System.out.println("Write the imageURL that represents the podcast: ");
+                imageURL = reader.next();
+                System.out.println("Write the duration of the podcast: ");
+                duration = reader.nextInt();
+                System.out.println("Write the description of the podcast");
+                description= reader.next();
                 System.out.println("Choose the genre of the podcast you are adding: ");
                 System.out.println("1. Politics \n" +
                 "2. Entertainment \n" +
@@ -185,41 +182,23 @@ public class Main{
                 "4. Fashion");
                 typeOfCategoryPodcast = reader.nextInt();
                 if(typeOfCategoryPodcast == 1){
-                    System.out.println("Write the name of the podcast");
-                    album = reader.next(); 
-                    System.out.println("Write the description of the podcast");
-                    description= reader.next();
                     System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.POLITICS));
 
                  }else if(typeOfCategoryPodcast == 2){
-                    System.out.println("Write the name of the podcast");
-                    album = reader.next(); 
-                    System.out.println("Write the description of the podcast");
-                    description= reader.next();
                     System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.ENTERTAINMENT));
 
                  }else if(typeOfCategoryPodcast == 3){
-                    System.out.println("Write the name of the podcast");
-                    album = reader.next(); 
-                    System.out.println("Write the description of the podcast");
-                    description= reader.next();
                     System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.VIDEOGAMES));
 
                  }else if(typeOfCategoryPodcast == 4){
-                    System.out.println("Write the name of the podcast");
-                    album = reader.next(); 
-                    System.out.println("Write the description of the podcast");
-                    description= reader.next();
                     System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.FASHION));
 
                  }else{
-
+                    System.out.println("Sorry this is not a valid option");
                  }
                 }else{
-                
-                 msj = "Sorry, an error happen";
+                    System.out.println("Sorry, an error happen");
                 }
-
             
             break;
             case 4: 
