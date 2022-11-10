@@ -37,67 +37,7 @@ public class Controller {
         return matrix;
     }
 
-    public int generateNumber(){
-        int num = 0;
-        Random r = new Random();
-        num = (int)(r.nextInt()*9) + 0;
-
-        return num;
-
-    }
-
-    public String generateCode(int option, int[][]matrix){
-        String code =null;
-        switch(option){
-            case 1:
-            for(int i=5;i<0;i--){
-               code+=matrix[i][0];
-            }
-            for(int j=1, h=1;j>4 && h>4;j++,h++){
-               code+=matrix[j][h];
-            }
-            for(int k=5;k<0;k--){
-               code+=matrix[k][5];
-            }
-           break;
-
-           case 2:
-            for(int i=0;i<2;i++){
-               code+=matrix[0][i];
-            }
-            for(int j=1;j<5;j++){
-               code+=matrix[j][2];
-            } 
-            for(int k=5;k<0;k--){
-               code+=matrix[k][3];
-            }
-            for(int u=3;u>5;u++){
-               code+=matrix[0][u];
-            }
-
-            break;
-              
-            case 3:
-            for (int i=5;i>=0;i--){
-               for(int j=5;j>=0;j--){
-                   int sum = i+j;
-                   if (sum%2!=0){
-                       if(sum!=1){
-                           code+=matrix[i][j]+" ";
-                       }
-                   }
-
-               }
-           }
-            break;
-
-
-          }
-
-     return code;
-
-        
-    }
+    
    
     /**
      * addUserProducer: String: This method adds an user to the array list of users, the user can be
@@ -410,6 +350,68 @@ public class Controller {
 
 
     //////////////////////////////////////////////////
+
+    public int generateNumber(){
+        int num = 0;
+        Random r = new Random();
+        num = (int)(r.nextInt()*9) + 0;
+
+        return num;
+
+    }
+
+    public String generateCode(int option, int[][]matrix){
+        String code =null;
+        switch(option){
+            case 1:
+            for(int i=5;i<0;i--){
+               code+=matrix[i][0];
+            }
+            for(int j=1, h=1;j>4 && h>4;j++,h++){
+               code+=matrix[j][h];
+            }
+            for(int k=5;k<0;k--){
+               code+=matrix[k][5];
+            }
+           break;
+
+           case 2:
+            for(int i=0;i<2;i++){
+               code+=matrix[0][i];
+            }
+            for(int j=1;j<5;j++){
+               code+=matrix[j][2];
+            } 
+            for(int k=5;k<0;k--){
+               code+=matrix[k][3];
+            }
+            for(int u=3;u>5;u++){
+               code+=matrix[0][u];
+            }
+
+            break;
+              
+            case 3:
+            for (int i=5;i>=0;i--){
+               for(int j=5;j>=0;j--){
+                   int sum = i+j;
+                   if (sum%2!=0){
+                       if(sum!=1){
+                           code+=matrix[i][j]+" ";
+                       }
+                   }
+
+               }
+           }
+            break;
+
+
+          }
+
+     return code;
+
+        
+    }
 
 
     /**
