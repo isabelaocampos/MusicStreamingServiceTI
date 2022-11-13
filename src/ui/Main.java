@@ -45,6 +45,10 @@ public class Main{
 				"3. Register song and podcasts \n" + 
                 "4. Create a playlist \n" +
                 "5. Edit a playlist \n" +
+                "6. Share playlist \n" +
+                "7. Play song or podcast \n" +
+                "8. Buy a song \n" +
+                "9. Get reports \n" +
 				"0. Exit. ");
 		option = reader.nextInt(); 
 
@@ -77,7 +81,7 @@ public class Main{
 
 
             }else if(typeOfUser == 2){
-                System.out.println("Write the name of the content creator:");
+                System.out.println("Write the name of the content creator: ");
 				name = reader.next();
 				System.out.println("Write the URL of the image that represents the content creator the best: ");
 				imageURL = reader.next();
@@ -99,9 +103,9 @@ public class Main{
             "2. Premium");
             typeOfUser = reader.nextInt();
             if(typeOfUser == 1){
-                System.out.println("Write the nickname of the user:");
+                System.out.println("Write the nickname of the new user:");
 				nickname = reader.next();
-				System.out.println("Write the id of the user: ");
+				System.out.println("Write the id of the new user: ");
 				id = reader.next();
 
 				msj = controller.addUserConsumer(nickname,id,vinculationDate, TypeOfUserConsumer.STANDARD);
@@ -109,9 +113,9 @@ public class Main{
 
 
             }else if(typeOfUser == 2){
-                System.out.println("Write the nickname of the user:");
+                System.out.println("Write the nickname of the new user:");
 				nickname = reader.next();
-				System.out.println("Write the id of the user: ");
+				System.out.println("Write the id of the new user: ");
 				id = reader.next();
 
 				msj = controller.addUserConsumer(nickname,id,vinculationDate, TypeOfUserConsumer.PREMIUM);
@@ -130,15 +134,15 @@ public class Main{
             typeOfContent = reader.nextInt();
 
             if(typeOfContent == 1){
-                System.out.println("You are know adding a song, please write the name of the artist");
+                System.out.println("You are know adding a song, please write the name of the artist: ");
                 name = reader.next();
-                System.out.println("Write the name of the song: ");
+                System.out.println("Write the name of the song you are creating: ");
                 contentname = reader.next();
-                System.out.println("Write the duration of the song: ");
+                System.out.println("Write the duration of the song you are adding: ");
                 duration = reader.nextInt();
-                System.out.println("Write the url of the image that represents the album: ");
+                System.out.println("Write the URL of the image that represents the album: ");
                 imageURL = reader.next();
-                System.out.println("Write the name of the album");
+                System.out.println("Write the name of the album whom the song belongs: ");
                 album = reader.next(); 
                 System.out.println("Write the price of the song");
                 price= reader.nextDouble();
@@ -218,18 +222,18 @@ public class Main{
 
             case 5: 
             System.out.println("You are know editing a playlist");
-            System.out.println("Write the user nickname");
+            System.out.println("Write the nickname of the user to whom the playlist belongs: ");
             nickname= reader.next();
             System.out.println("Choose the option you want");
             System.out.println("1. Add audio to the playlist \n" +
-            "Delete audio of playlist");
+            "2. Delete audio of playlist");
             typeOfEdition = reader.nextInt();
-            System.out.println("Write the playlist name");
+            System.out.println("Write the playlist name: ");
             playlistName = reader.next();
-            System.out.println("Write the name of the audio");
+            System.out.println("Write the name of the audio: ");
             contentname = reader.next();
 
-            System.out.println(controller.editAudioToPlaylist(option, nickname, playlistName, playlistName));
+            System.out.println(controller.editAudioToPlaylist(typeOfEdition, nickname, playlistName, contentname));
 
             break;
 

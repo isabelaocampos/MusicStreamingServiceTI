@@ -33,7 +33,7 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
                 String msj="";
                 Playlist thePlaylist=searchPlaylist(playlistName);
                 if(thePlaylist==null){
-                    msj="dont exist the playslist";
+                    msj="Sorry this playlist doesn't exist";
                  }
                  else{
                     if(thePlaylist.typePlaylist()==1){
@@ -43,11 +43,11 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
                                 thePlaylist.getAudios().add(producerContent);
                             }
                             else{
-                                msj="the audio is repit";
+                                msj="The audio is repeated";
                             }
                         }
                         else{
-                            msj="you cant add this audio beacuse is diferent type of playlist";
+                            msj="Sorry, but this type of audio can't be added to this type of playlist";
                         }
                     }
                     if(thePlaylist.typePlaylist()==2){
@@ -57,11 +57,11 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
                                 thePlaylist.getAudios().add(producerContent);
                             }
                             else{
-                                msj="the audio is repit";
+                                msj="The audio is repeated";
                             }
                         }
                         else{
-                            msj="you cant add this audio beacuse is difertent type of playlist";
+                            msj="Sorry, but this type of audio can't be added to this type of playlist";
                         }
                     }
                     if(thePlaylist.typePlaylist()==3){
@@ -71,7 +71,7 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
                                 thePlaylist.getAudios().add(producerContent);
                             }
                             else{
-                                msj="the audio is repit";
+                                msj="The audio is repeated";
                             }
                     }
                  }
@@ -86,16 +86,16 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
         String msj="";
         Playlist thePlaylist=searchPlaylist(playlistName);
         if(thePlaylist==null){
-             msj="dont exist the playslist";
+             msj="The playlist doesn't exist";
         }
         else{
             boolean audiorepit=thePlaylist.searchContent(contentname);
             if(audiorepit==true){
             thePlaylist.getAudios().remove(producerContent);
-            msj="has been removed successfully";
+            msj="The audio has been deleted from the playlist successfully";
           }
           else{
-            msj="no such audio found";
+            msj="We couldn't found this audio, try again";
           }
 
           

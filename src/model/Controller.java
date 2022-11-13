@@ -424,9 +424,11 @@ public class Controller {
         UserProducer user = null;
         boolean isFound = false;
         for(int i = 0; i < users.size() && !isFound; i++){
-            if(((UserProducer) users.get(i)).getName().equalsIgnoreCase(name)){
-                user = (UserProducer) users.get(i);
-                isFound = true;
+            if(users.get(i) instanceof UserConsumer){
+                if(((UserProducer) users.get(i)).getName().equalsIgnoreCase(name)){
+                    user = (UserProducer) users.get(i);
+                    isFound = true;
+                }
             }
         }
 
@@ -443,9 +445,11 @@ public class Controller {
         UserConsumer user = null;
         boolean isFound = false;
         for(int i = 0; i < users.size() && !isFound; i++){
-            if(((UserConsumer) users.get(i)).getNickName().equalsIgnoreCase(nickname)){
-                user = (UserConsumer) users.get(i);
-                isFound = true;
+            if(users.get(i) instanceof UserConsumer){
+                if(((UserConsumer) users.get(i)).getNickName().equalsIgnoreCase(nickname)){
+                    user = (UserConsumer) users.get(i);
+                    isFound = true;
+                }
             }
         }
 

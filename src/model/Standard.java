@@ -28,14 +28,14 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
                         boolean audiorepit= Aplaylist.searchContent(contentname);
                         if(audiorepit == false){
                             Aplaylist.getAudios().add(producerContent);
-                            msj="audio added";
+                            msj="Audio added successfully";
 
                         }else{
-                            msj="the audio is repit";
+                            msj="Sorry, the audio is repeated";
                         }
                         }
                         else{
-                            msj="you cant add this audio beacuse is diferent type of playlist";
+                            msj="Sorry, but this type of audio can't be added to this type of playlist";
                         }
                     }
                     if(Aplaylist.typePlaylist()==2){
@@ -43,14 +43,14 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
                             boolean audiorepit= Aplaylist.searchContent(contentname);
                             if(audiorepit == false){
                                 Aplaylist.getAudios().add(producerContent);
-                                msj="audio added";
+                                msj="Audio added successfully";
                             }
                             else{
-                                msj="the audio is repit";
+                                msj="Sorry, the audio is repeated";
                             }
                         }
                         else{
-                            msj="you cant add this audio beacuse is difertent type of playlist";
+                            msj="Sorry, but this type of audio can't be added to this type of playlist";
                         }
                     }
                     if(Aplaylist.typePlaylist()==3){
@@ -58,10 +58,10 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
                             boolean audiorepit= Aplaylist.searchContent(contentname);
                             if(audiorepit == false){
                                 Aplaylist.getAudios().add(producerContent);
-                                msj="audio added";
+                                msj="Audio added successfully";
                             }
                             else{
-                                msj="the audio is repit";
+                                msj="Sorry, the audio is repeated";
                             }
                     }
                  }
@@ -75,16 +75,16 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
         String msj="";
         Playlist Aplaylist=searchPlaylist(playlistName);
         if(Aplaylist==null){
-            msj="dont exist the playslist";
+            msj="The playlist doesn't exist";
         }
         else{
             boolean audiorepit=Aplaylist.searchContent(contentname);
           if(audiorepit==true){
             Aplaylist.getAudios().remove(producerContent);
-            msj="has been removed successfully";
+            msj="The audio has been delete of the playlist successfully";
             }
             else{
-            msj="no such audio found";
+            msj="We couldn't found this audio, try again";
             }
 
           
