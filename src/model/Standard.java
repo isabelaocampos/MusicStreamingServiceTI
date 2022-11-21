@@ -2,15 +2,17 @@ package model;
 
 import java.util.Calendar;
 
-public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlaylist{
+public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlaylist, IPlayContent{
 
     private Playlist[] playlist;
     public static int TOTAL_PLAYLIST_PER_STANDART = 20;
     public static int TOTAL_SONGS_PER_STANDART = 100;
+    private Song[] boughtSongs;
     
     public Standard(String nickname, String id, Calendar vinculationDate) {
         super(nickname, id, vinculationDate);
         playlist = new Playlist[TOTAL_PLAYLIST_PER_STANDART];
+        boughtSongs = new Song[TOTAL_SONGS_PER_STANDART];
     }
     
 
@@ -140,6 +142,98 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
 
         return validation;
     }
+
+    public boolean availableSong(){
+        boolean validation = true;
+        if(boughtSongs[99] != null){
+            validation = false;
+        }
+
+        return validation;
+    }
+
+/* 
+    @Override
+    public boolean buySong(String nickname, String contentname) {
+        boolean validate = true;
+        Song newBoughtSong = searchSong(contentname);
+        if(newBoughtSong != null){
+            validate = false;
+        }else{
+            boolean secondValidate = availableSong();
+            if(secondValidate == true){
+                newBoughtSong = new Song(contentname);
+                secondValidate = false;
+                for(int i= 0; i<20 && !secondValidate; i++){
+                    if(boughtSongs[i] == null){
+                        boughtSongs[i] = newBoughtSong;
+                        secondValidate = true;
+                    }
+                }
+            }
+        }
+        
+        return true;
+    }
+*/
+/* 
+    @Override
+    public Song searchSong(String contentName) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+*/
+
+    @Override
+    public String sharePlaylist(String playlistName) {
+        String msj = "";
+        Playlist playlist = searchPlaylist(playlistName);
+        if(playlist == null){
+            msj = "Sorry, we couldn't find this playlist";
+
+        }else{
+            msj = playlist.getCode();
+        }
+        return msj;
+    }
+
+
+    @Override
+    public String playlistMatrix(String playlistName) {
+        String msj = "";
+        Playlist playlist = searchPlaylist(playlistName);
+        if(playlist == null){
+            msj = "Sorry an unexpected error happened";
+        }else{
+            msj = printMatrix(playlist.getMatrix());
+        }
+        return msj;
+    }
+
+    @Override
+    public String printMatrix(int [][] matrix){
+        String pmatrix = "";
+        for (int i = 0; i < matrix.length; i++) { // filas numbers.length
+        for (int j = 0; j < matrix[0].length; j++) { // columnas numbers[0].length
+          pmatrix += matrix[i][j] + " ";
+        }
+        pmatrix += "\n";
+      }
+  
+      return pmatrix;
+        
+    }
+
+
+
+
+    @Override
+    public String playContent(ProducerContent content) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    
 
 
 }

@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlaylist{
+public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlaylist, IPlayContent{
 
     private ArrayList<Playlist> playlistsPremiumUser;
     
@@ -136,7 +136,49 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
         return newPlaylist;
     }
 
-    public String delateAudio(ProducerContent newAudio, String namePlaylist, String audio) {
+    @Override
+    public String sharePlaylist(String playlistName) {
+        String msj = "";
+        Playlist playlist = searchPlaylist(playlistName);
+        if(playlist == null){
+            msj = "Sorry, we couldn't find this playlist";
+
+        }else{
+            msj = playlist.getCode();
+        }
+        return msj;
+    }
+
+    @Override
+    public String playlistMatrix(String playlistName) {
+        String msj = "";
+        Playlist playlist = searchPlaylist(playlistName);
+        if(playlist == null){
+            msj = "Sorry an unexpected error happened";
+        }else{
+            msj = printMatrix(playlist.getMatrix());
+        }
+        return msj;
+    }
+
+    @Override
+    public String printMatrix(int[][] matrix) {
+        String pmatrix = "";
+        for (int i = 0; i < matrix.length; i++) { // filas numbers.length
+        for (int j = 0; j < matrix[0].length; j++) { // columnas numbers[0].length
+          pmatrix += matrix[i][j] + " ";
+        }
+        pmatrix += "\n";
+      }
+  
+      return pmatrix;
+    }
+
+  
+
+    @Override
+    public String playContent(ProducerContent content) {
+        // TODO Auto-generated method stub
         return null;
     }
 }

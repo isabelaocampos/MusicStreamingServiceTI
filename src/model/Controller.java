@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 public class Controller {
@@ -37,6 +38,10 @@ public class Controller {
         return matrix;
     }
 
+    public Calendar date(){
+        Calendar calendar = new GregorianCalendar(2022, Calendar.NOVEMBER,20);
+        return calendar;
+    }
     
    
     /**
@@ -52,9 +57,9 @@ public class Controller {
      * @return: msj: String: This method returns a type string parameter, a messafge assuring that the user has been added or that
      * an errror has happened.
      */
-    public String addUserProducer(String name, Calendar vinculationDate, String imageURL, TypeOfUserProducer typeOfUserProducer){
+    public String addUserProducer(String name, String imageURL, TypeOfUserProducer typeOfUserProducer){
         String msj = "";
-        
+        Calendar vinculationDate = date();
         switch(typeOfUserProducer){
             case ARTIST:
             users.add(new Artist(name, imageURL,vinculationDate));
@@ -88,9 +93,9 @@ public class Controller {
      * there are two types of user consumers: the standard and the premium user.
      * @return msj: String: This method returns an assurring message that the user has been added or a message announcing an error.
      */
-    public String addUserConsumer(String nickname, String id, Calendar vinculationDate, TypeOfUserConsumer typeOfUserConsumer){
+    public String addUserConsumer(String nickname, String id, TypeOfUserConsumer typeOfUserConsumer){
         String msj = "";
-        
+        Calendar vinculationDate = date();
         switch(typeOfUserConsumer){
             case STANDARD:
             users.add(new Standard(nickname, id,vinculationDate));
@@ -292,14 +297,14 @@ public class Controller {
      */
     public String editAudioToPlaylist(int option,String nickname,String namePlaylist, String contentname){
         String msj = ""; 
-        ProducerContent newAudio = findAudio(contentname);
+        ProducerContent newContent = findAudio(contentname);
 
-        if(newAudio == null){
+        if(newContent == null){
             msj = "Sorry this song already exists";
 
         }else{
             int type;
-            if(newAudio instanceof Song){
+            if(newContent instanceof Song){
                 type =1;
 
             }else{
@@ -316,11 +321,11 @@ public class Controller {
 
                     if(aUser instanceof Standard){
                         Standard newStandart = ((Standard)(aUser));
-                        msj = newStandart.addAudioToPlaylist(namePlaylist, type, newAudio,contentname); 
+                        msj = newStandart.addAudioToPlaylist(namePlaylist, type, newContent,contentname); 
 
                     }else if(aUser instanceof Premium){
                         Premium newPremium = ((Premium)(aUser));
-                        msj = newPremium.addAudioToPlaylist(namePlaylist,type,newAudio, contentname);
+                        msj = newPremium.addAudioToPlaylist(namePlaylist,type,newContent, contentname);
 
                     }else{
                         msj = "Sorry this is not a user consumer";
@@ -330,11 +335,11 @@ public class Controller {
 
                     if(aUser instanceof Standard){
                         Standard newStandart = ((Standard)(aUser));
-                        msj = newStandart.deleteAudioOfPlaylist(newAudio, namePlaylist, contentname);
+                        msj = newStandart.deleteAudioOfPlaylist(newContent, namePlaylist, contentname);
 
                     }else if(aUser instanceof Premium){
                         Premium newPremium = ((Premium)(aUser));
-                        msj = newPremium.deleteAudioOfPlaylist(newAudio, namePlaylist, contentname);
+                        msj = newPremium.deleteAudioOfPlaylist(newContent, namePlaylist, contentname);
 
                     }else{
                         msj = "Sorry this is not a user consumer";
@@ -348,70 +353,207 @@ public class Controller {
 
     }
 
+    /* 
+    public String buySong(String nickname, String audioName){
+        String msj = "";
+        UserConsumer user = findUserConsumer(nickname);
+        ProducerContent audio = findAudio(audioName);
+        if(user == null){
+            msj = "This user doesn't exist, try again";
+        }else{
+            if(user instanceof Standard){
+                if(audio instanceof Song){
+                    
+                }else{
+                    msj = "Sorry, we don't sale podcasts, but you can play them in option 7";
+                }
+            }else if(user instanceof Premium){
+                if(audio instanceof Song){
+                    
+                }else{
+                    msj = "Sorry, we don't sale podcasts, but you can play them in option 7";
+                }
+            }else{
+                msj = "This user is not a user consumer";
+            }
+        }
 
+        return msj;
+    }
+
+    */
+    public String sharePlaylist(String nickname, String namePlaylist){
+        String numberCode = "";
+
+        User user = findUserConsumer(nickname);
+
+        if(user == null){
+            numberCode = "Sorry this user doesn't exists";
+        }else{
+            if(user instanceof Standard){
+                Standard newStandard = ((Standard)(user));
+                numberCode = newStandard.sharePlaylist(namePlaylist) + "\n" + newStandard.playlistMatrix(namePlaylist);
+
+            }else if(user instanceof Premium){
+                Premium newPremium = ((Premium)(user));
+                numberCode = newPremium.sharePlaylist(namePlaylist) + "\n" + newPremium.playlistMatrix(namePlaylist);
+            }else{
+                numberCode = "Sorry, this is not a user consumer. Try again";
+            }   
+        }
+
+        return numberCode;
+    }
+
+    public String playingAudio(String nickname, String contentname){
+
+        String msj = ""; 
+        User user = findUserConsumer(nickname);
+
+        if(user == null){
+            msj = "Sorry, we couldn't find the user. Try again";
+        }
+        else{
+            ProducerContent newContent = findAudio(contentname);
+            if(newContent == null){
+                msj = "the audio doesnt exist";
+            }
+               else{
+                if(user instanceof Standard){
+                    Standard newStandart = ( (Standard)(user) );
+                    msj = newStandart.playContent(newContent);
+                    updateState(newContent);
+                }
+                else if(user instanceof Premium){
+                    Premium newPremium = ( (Premium)(user) );
+                    msj = newPremium.playContent(newContent);
+                    updateState(newContent);
+                }
+                else{
+                    msj = "Sorry, the user you wrote is not an user consumer"; 
+                }
+            } 
+        }
+
+         
+
+        return msj;
+
+    }
+/* 
+    public String buySong(String nickname, String songName){
+
+        String msj = ""; 
+        User user = findUserConsumer(nickname);
+
+        if(user == null){
+            msj = "Sorry, we couldn't find this user. Try again";
+        }
+        else{
+            ProducerContent newAudio = findAudio(songName);
+            if(newAudio == null){
+                msj = "the audio doesnt exist";
+            }
+
+            else{
+                if(newAudio instanceof Song){
+                    Song newSong = ( (Song)(newAudio) );
+                    if(user instanceof Standard){
+                        int numBuys = countBuysForUser(nickname);
+                        if(numBuys<100){
+                            Shop newShop = new Shop(dateActual(), nickname, songName); 
+                            shops.add(newShop); 
+                            newSong.setNumberSales(newSong.getNumberSales()+1);
+
+                        }else{
+                            msj = "the purchasing limit has been reached "; 
+                        }
+
+                    } else if( user instanceof Premium){
+                        Shop newShop = new Shop(dateActual(), nickname, songName); 
+                        shops.add(newShop); 
+                        newSong.setNumberSales(newSong.getNumberSales()+1);
+
+                    }
+                }
+                else if(newAudio instanceof Podcast){
+                    msj = "is not posible buy a podcast";
+                    
+                }
+                else{
+                    msj = "must enter a user type consumer"; 
+                }
+            } 
+
+        }
+        return msj; 
+
+    }
+*/
     //////////////////////////////////////////////////
 
     public int generateNumber(){
         int num = 0;
         Random r = new Random();
-        num = (int)(r.nextInt()*9) + 0;
+        num = r.nextInt(8+1) + 1;
 
         return num;
 
     }
 
     public String generateCode(int option, int[][]matrix){
-        String code =null;
+
+        String code="";
         switch(option){
             case 1:
-            for(int i=5;i<0;i--){
-               code+=matrix[i][0];
-            }
-            for(int j=1, h=1;j>4 && h>4;j++,h++){
-               code+=matrix[j][h];
-            }
-            for(int k=5;k<0;k--){
-               code+=matrix[k][5];
-            }
-           break;
-
-           case 2:
-            for(int i=0;i<2;i++){
-               code+=matrix[0][i];
-            }
-            for(int j=1;j<5;j++){
-               code+=matrix[j][2];
-            } 
-            for(int k=5;k<0;k--){
-               code+=matrix[k][3];
-            }
-            for(int u=3;u>5;u++){
-               code+=matrix[0][u];
-            }
-
+                for (int i = matrix.length; i > 0; i--) {
+                    code += matrix[i - 1][0];
+                }
+                for (int i = 1, j = 1; i < matrix.length -1; i++, j++) {           
+                    code+= matrix[i][j];        
+                }
+                for (int i = matrix.length; i > 0; i--) { 
+                    code += matrix[i - 1][matrix[0].length - 1];
+                }
+            
             break;
-              
+  
+            case 2:
+                for (int j = 0; j < matrix.length -4; j++) { 
+                    code+= matrix[0][j];
+                }
+                for (int i = 0; i < matrix.length; i++) { 
+                    code += matrix[i][2];
+                }
+                for (int i = matrix.length; i > 0; i--) { 
+                    code += matrix[i - 1][3];
+                }
+                for (int j = matrix.length -2; j < matrix.length; j++ ) { 
+                    code += matrix[0][j];
+                }
+  
+            break;
+             
             case 3:
-            for (int i=5;i>=0;i--){
-               for(int j=5;j>=0;j--){
-                   int sum = i+j;
-                   if (sum%2!=0){
-                       if(sum!=1){
-                           code+=matrix[i][j]+" ";
-                       }
-                   }
-
-               }
-           }
-            break;
-
-
-          }
-
-     return code;
-
+                for (int i=5;i>=0;i--){
+                    for(int j=5;j>=0;j--){
+                        int sum = i+j;
+                        if (sum%2!=0){
+                            if(sum!=1){
+                                code+=matrix[i][j]+" ";
+                            }
+                        }
         
+                    }
+                }
+            break;
+  
+  
+        }
+  
+        return code;
     }
+            
 
 
     /**
@@ -424,7 +566,7 @@ public class Controller {
         UserProducer user = null;
         boolean isFound = false;
         for(int i = 0; i < users.size() && !isFound; i++){
-            if(users.get(i) instanceof UserConsumer){
+            if(users.get(i) instanceof UserProducer){
                 if(((UserProducer) users.get(i)).getName().equalsIgnoreCase(name)){
                     user = (UserProducer) users.get(i);
                     isFound = true;
@@ -472,6 +614,41 @@ public class Controller {
 
         return audio;
     }
+
+    public void updateState(ProducerContent content){
+        if(content instanceof Song){
+            Song song = ( (Song)(content) );
+            boolean val=false;
+            for(int i=0;i<users.size() && !val;i++){
+                if(users.get(i) instanceof Artist){
+                    Artist artist = ( (Artist) (users.get(i)) );
+                    if(artist.findSongArtist(song)){
+                        artist.setTotalViews(artist.getTotalPlayedTime()+1);
+                        artist.setTotalPlayedTime(song.getDuration()+artist.getTotalPlayedTime());
+                        song.setView(song.getView()+1);
+                        val=true;
+                    }
+                }
+            }
+    
+        }
+        else if(content instanceof Podcast){
+           Podcast podcast = ( ( Podcast)(content) );
+               boolean val=false;
+               for(int i=0;i<users.size() && !val;i++){
+                   if(users.get(i) instanceof ContentCreator){
+                       ContentCreator creator = ( (ContentCreator)(users.get(i)) );
+                       if(creator.findPodcastCreator(podcast)){
+                          creator.setTotalViews(creator.getTotalPlayedTime()+1);
+                          creator.setTotalPlayedTime(podcast.getDuration()+creator.getTotalPlayedTime());
+                          podcast.setView(podcast.getView()+1);
+                           val=true;
+                       }
+                   }
+                }
+    
+            }
+        }
 
 }
 

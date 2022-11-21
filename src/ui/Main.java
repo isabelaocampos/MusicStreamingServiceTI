@@ -56,9 +56,9 @@ public class Main{
 	}
 
     public void executeOption(int option){
-        int typeOfUser, duration, typeOfContent, typeOfGenreSong, typeOfCategoryPodcast, typeOfPlaylist, typeOfEdition = 0;
+        int typeOfUser, duration, typeOfContent, typeOfGenreSong, typeOfCategoryPodcast, typeOfPlaylist, typeOfEdition, typeOfReport = 0;
         double price = 0;
-        String msj, name, imageURL, id, nickname, contentname, album, description, playlistName= "";
+        String a, msj, name, imageURL, nickname, contentname, album, description, playlistName, songName, audioToPlay, id= "";
         Calendar vinculationDate = dateToday();
     
 
@@ -76,17 +76,18 @@ public class Main{
 				System.out.println("Write the URL of the image that represents the artist the best: ");
 				imageURL = reader.next();
 				
-				msj = controller.addUserProducer(name,vinculationDate,imageURL, TypeOfUserProducer.ARTIST);
+				msj = controller.addUserProducer(name,imageURL, TypeOfUserProducer.ARTIST);
 				System.out.println(msj);
 
 
             }else if(typeOfUser == 2){
                 System.out.println("Write the name of the content creator: ");
 				name = reader.next();
+
 				System.out.println("Write the URL of the image that represents the content creator the best: ");
 				imageURL = reader.next();
 				
-				msj = controller.addUserProducer(name,vinculationDate,imageURL, TypeOfUserProducer.CONTENTCREATOR);
+				msj = controller.addUserProducer(name,imageURL, TypeOfUserProducer.CONTENTCREATOR);
 				System.out.println(msj);
 
             }else{
@@ -105,20 +106,20 @@ public class Main{
             if(typeOfUser == 1){
                 System.out.println("Write the nickname of the new user:");
 				nickname = reader.next();
-				System.out.println("Write the id of the new user: ");
+				System.out.println("Write the id (cedula) of the new user(example. 100023434): ");
 				id = reader.next();
 
-				msj = controller.addUserConsumer(nickname,id,vinculationDate, TypeOfUserConsumer.STANDARD);
+				msj = controller.addUserConsumer(nickname,id, TypeOfUserConsumer.STANDARD);
 				System.out.println(msj);
 
 
             }else if(typeOfUser == 2){
                 System.out.println("Write the nickname of the new user:");
 				nickname = reader.next();
-				System.out.println("Write the id of the new user: ");
+				System.out.println("Write the id (cedula) of the new user(example. 100023434): ");
 				id = reader.next();
 
-				msj = controller.addUserConsumer(nickname,id,vinculationDate, TypeOfUserConsumer.PREMIUM);
+				msj = controller.addUserConsumer(nickname,id, TypeOfUserConsumer.PREMIUM);
 				System.out.println(msj);
 
             }else{
@@ -138,13 +139,13 @@ public class Main{
                 name = reader.next();
                 System.out.println("Write the name of the song you are creating: ");
                 contentname = reader.next();
-                System.out.println("Write the duration of the song you are adding: ");
+                System.out.println("Write the duration of the song you are adding (Example. 3:44 -> 344): ");
                 duration = reader.nextInt();
                 System.out.println("Write the URL of the image that represents the album: ");
                 imageURL = reader.next();
                 System.out.println("Write the name of the album whom the song belongs: ");
                 album = reader.next(); 
-                System.out.println("Write the price of the song");
+                System.out.println("Write the price of the song: ");
                 price= reader.nextDouble();
                 System.out.println("Choose the genre of the song you are adding: ");
                 System.out.println("1. Rock \n" +
@@ -175,7 +176,7 @@ public class Main{
                 contentname = reader.next();
                 System.out.println("Write the imageURL that represents the podcast: ");
                 imageURL = reader.next();
-                System.out.println("Write the duration of the podcast: ");
+                System.out.println("Write the duration of the podcast (Example. 10:34 -> 1034): ");
                 duration = reader.nextInt();
                 System.out.println("Write the description of the podcast");
                 description= reader.next();
@@ -236,6 +237,75 @@ public class Main{
             System.out.println(controller.editAudioToPlaylist(typeOfEdition, nickname, playlistName, contentname));
 
             break;
+
+            case 6:
+            System.out.println("You are know sharing a playlist");
+            System.out.println("Please write the name of the user");
+            nickname = reader.next();
+            System.out.println("Write the name of the playlist");
+            playlistName = reader.next();
+
+            msj = controller.sharePlaylist(nickname, playlistName);
+            System.out.println(msj);
+            break;
+            
+            case 7:
+            System.out.println("You are about to play a song or podcast");
+            System.out.println("Write the nickname of the user");
+            nickname = reader.next();
+
+            System.out.println("What do you want to play, choose an option");
+            System.out.println("Write the name of the song or podcast: ");
+            audioToPlay = reader.next();
+
+            msj = controller.playingAudio(nickname, audioToPlay);
+            
+            
+            break;
+            
+            case 8: 
+            System.out.println("You are about to buy a song");
+            System.out.println("Write the nickname of the user");
+            nickname = reader.next();
+            System.out.println("Write the name of the song you want to buy");
+            songName = reader.next();
+            
+
+            break;
+
+            case 9:
+            System.out.println("You are know in the reports, choose the report you want to see:");
+            System.out.println("1. Accumulated views of songs and podcast across the platform \n" +
+            "2. Most listened song genre for a user and on the platform \n" + 
+            "3. Most listened podcast category for a user and on the platform \n" +
+            "4. Top 5 Artist and Top 5 content creators \n" +
+            "5. Top 10 songs and Top 10 podcast \n" +
+            "6. Amount of songs sold and total sales value per genre \n" +
+            "7. Best selling song on the platform \n" +
+            "8. Show all reports");
+            typeOfReport = reader.nextInt();
+
+            switch(typeOfReport){
+
+                case 1:
+
+                break;
+
+                default:
+
+                break;
+                }
+
+            break;
+
+            case 0:
+
+            break;
+
+            default:
+
+            break;
+
 
         }
     }

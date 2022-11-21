@@ -26,7 +26,11 @@ public abstract class UserConsumer extends User{
         return this.id;
     }
 
-    //public abstract String addSong(); 
+    public abstract String sharePlaylist(String playlistName);
+    public abstract String playlistMatrix(String playlistName);
+    public abstract String printMatrix(int[][] matrix);
+
+    
     
     
 }
