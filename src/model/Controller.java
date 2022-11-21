@@ -359,7 +359,12 @@ public class Controller {
 
     }
 
-   
+    /**
+     * SharePlaylist: This method shares an user playlist. 
+     * @param nickname : String : user nickname.
+     * @param namePlaylist: String: playlist name.
+     * @return numbercode: String: the playlist. 
+     */
     public String sharePlaylist(String nickname, String namePlaylist){
         String numberCode = "";
 
@@ -383,6 +388,12 @@ public class Controller {
         return numberCode;
     }
 
+    /**
+     * playingAudio: This method plays an audio selected by the user. 
+     * @param nickname : String : user nickname.
+     * @param contentname: String: the content name.
+     * @return  msj: String: a confirmation message.
+     */
     public String playingAudio(String nickname, String contentname){
 
         String msj = ""; 
@@ -419,6 +430,12 @@ public class Controller {
 
     }
 
+    /**
+     * buySong: This method buys a song for a user. 
+     * @param nickname : String : user nickname.
+     * @param songName: String: audios name.
+     * @return  msj: String: a confirm message.
+     */
     public String buySong(String nickname, String songName){
 
         String msj = ""; 
@@ -480,6 +497,11 @@ public class Controller {
         return msj;
     }
 
+    /**
+     * mostViewSongForUser: This method inform the most view song for an user. 
+     * @param nickname : String : user nickname.
+     * @return msj: String : a confirmation message.
+     */
     public String mostViewSongForUser(String nickname){
         String msj = ""; 
         User user = findUserConsumer(nickname);
@@ -506,6 +528,11 @@ public class Controller {
 
     }
 
+    /**
+     * mostViewPodcastForUser: This method inform the most view podcast for an user. 
+     * @param nickname : String : user nickname.
+     * @return msj: String : a confirmation message.
+     */
     public String mostViewPodcastForUser(String nickname){
         String msj = ""; 
         User user = findUserConsumer(nickname);
@@ -531,6 +558,10 @@ public class Controller {
         return msj;
     }
 
+     /**
+     * mostSongViews: This method inform the most view song in the app. 
+     * @return msj: String : report with the most listened song.
+     */
     public String mostSongViews(){
       String msj="";
       int [] geners= {0,0,0,0};
@@ -588,6 +619,10 @@ public class Controller {
       return msj;
      }
 
+     /**
+     * mostPodcastViews: This method inform the most view podcast in the app. 
+     * @return msj: String : report with the most listened podcast.
+     */
      public String mostPodcastViews(){
       String msj="";
       int [] geners= {0,0,0,0};
@@ -645,6 +680,10 @@ public class Controller {
       return msj;
      }
 
+    /**
+     * infoSongsSold: This method inform the song sold by genre.
+     * @return msj: String : report of the songs.
+     */
      public String infoSongsSold(){
         String msj = ""; 
         int countRock = 0;
@@ -688,6 +727,10 @@ public class Controller {
     
        }
 
+       /**
+     * totalSalesSongs: This method informs the total sales for a song sold in the app.
+     * @return msj: String : reassuring message.
+     */
        public String totalSalesSongs(){
         String msj = ""; 
         double totalSales = 0.0; 
@@ -701,12 +744,17 @@ public class Controller {
             }else{
                 msj="There is no content in the platform";
             }
-            msj = "Total sales is " + totalSales; 
+            msj = "Total " + totalSales; 
             return msj; 
        }
 
     //////////////////////////////////////////////////
 
+
+    /**
+     * generateNumber: This method generate a random number
+     * @return num : int:random number. 
+     */
     public int generateNumber(){
         int num = 0;
         Random r = new Random();
@@ -716,6 +764,12 @@ public class Controller {
 
     }
 
+    /**
+     * generateCode: This method generates a code depending of the playlist type
+     * @param option: int: playlist type.
+     * @param matriz: int[][]: playlist matriz.
+     * @return code : a msj with the matriz. 
+     */
     public String generateCode(int option, int[][]matrix){
 
         String code="";
@@ -865,6 +919,11 @@ public class Controller {
             }
         }
 
+    /**
+     * countBuysForUser: This method counts the bought soings of an user. 
+     * @param nickname : String : nickname of the user.
+     * @return  count: int: a int count .
+     */
     public int countBuysForUser(String nickname){
         int count =0; 
         if(boughtSongs.size() != 0){

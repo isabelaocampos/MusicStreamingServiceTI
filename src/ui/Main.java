@@ -310,11 +310,9 @@ public class Main{
             System.out.println("1. Accumulated views of songs and podcast across the platform \n" +
             "2. Most listened song genre for a user and on the platform \n" + 
             "3. Most listened podcast category for a user and on the platform \n" +
-            "4. Top 5 Artist and Top 5 content creators \n" +
-            "5. Top 10 songs and Top 10 podcast \n" +
-            "6. Amount of songs sold and total sales value per genre \n" +
-            "7. Best selling song on the platform \n" +
-            "8. Show all reports");
+            "4. Amount of songs sold and total sales value per genre \n" +
+            "5. Best selling song on the platform \n" +
+            "6. Show all reports");
             typeOfReport = reader.nextInt();
 
             switch(typeOfReport){
@@ -338,22 +336,24 @@ public class Main{
                 break;
 
 
+                case 4:
+                msj = controller.infoSongsSold();
+                System.out.println(msj);
+                break;
+
+                case 5:
+                msj = controller.totalSalesSongs() ;
+                System.out.println(msj);
+                break;
+
                 case 6:
-                msj ="" ;
-                System.out.println(msj);
-                break;
-
-                case 7:
-                msj ="" ;
-                System.out.println(msj);
-                break;
-
-                case 8:
                 System.out.println("Write the user nickname: ");
                 nickname = reader.next();
                 System.out.println(controller.accumulatedViews());
                 System.out.println(controller.mostViewSongForUser(nickname));
                 System.out.println(controller.mostViewPodcastForUser(nickname));
+                System.out.println(controller.infoSongsSold());
+                System.out.println(controller.totalSalesSongs());
                 break;
 
 

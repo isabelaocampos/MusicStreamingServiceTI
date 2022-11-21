@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlaylist, IPlayContent{
 
@@ -25,8 +26,6 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
     public ArrayList<Song> getPremiumSongs(){
         return songsPremiumUser;
     }
-
-   
 
     @Override
     public String addAudioToPlaylist(String playlistName, int typeAudio, ProducerContent producerContent,
@@ -82,7 +81,6 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
         
             }
     
-
     @Override
     public String deleteAudioOfPlaylist(ProducerContent producerContent, String playlistName, String contentname) {
         String msj="";
@@ -122,8 +120,6 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
 
     }
 
-
-    
     @Override
     public Playlist searchPlaylist(String name) {
         Playlist newPlaylist=null;
@@ -176,14 +172,57 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
       return pmatrix;
     }
 
-  
-
     @Override
     public String playContent(ProducerContent content) {
-        // TODO Auto-generated method stub
-        return null;
+        String msj = "." + "\n"+ "." + "\n"+ "." +  "\n" + " the audio is playing" + "." + "\n";   ; 
+        if(audios.size()==0){
+
+        }
+        else{
+            int reproduction =audios.size();
+            String ad1 = "nike -Just Do It" + "\n";
+            String ad2 = "Coca-Cola -Open Happiness" + "\n";
+            String ad3= "M&Ms -  Melts in your moth" + "\n";
+
+            if(reproduction %2 ==0){
+                int number = generateNumber();
+                switch(number){
+                case 1: 
+                    msj = ad1;
+                    break;
+                case 2:
+                    msj = ad2;
+                    break;
+                case 3:
+                    msj = ad3;
+                    break;
+                }
+            }
+            else{
+                audios.add(content);
+            }
+        }
+
+        return msj;
     }
 
+    /**
+     * generateNumber: This method generates a random number.
+     * @return value : int: Random number. 
+     */
+    public int generateNumber(){
+
+        Random r= new Random();
+       
+         int value = r.nextInt(2 + 1) + 1;
+       
+        return value;
+    }
+
+    /**
+     * mostSongAmountByUser: String: This method reports the most played song in the app.
+     * @return msj: String : A message with the most listened song.
+     */
     public String mostSongAmountByUser(){
         String msj="";
         int [] geners= {0,0,0,0};
@@ -240,7 +279,11 @@ public class Premium extends UserConsumer implements ICreatePlaylist, IEditPlayl
          }
         return msj;
        }
-    
+       
+       /**
+     * mostPodcastViews: This method reports the podcast with most Views. 
+     * @return msj: String : A message with the most listened podcast.
+     */
        public String mostPodcastViews(){
         String msj="";
         int [] geners= {0,0,0,0};

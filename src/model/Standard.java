@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlaylist, IPlayContent{
 
@@ -95,9 +96,7 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
        return msj;
 
     }
-
-
-
+    
     @Override
     public boolean addPlaylist(String playlistName, int[][] matrix, String code, int option) {
         
@@ -121,7 +120,6 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
         return validation;
     }
 
-
     @Override
     public Playlist searchPlaylist(String playlistName) {
         Playlist newPlaylist = null;
@@ -135,6 +133,10 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
         return newPlaylist;
     }
 
+    /**
+     * availablePlaylist: This method searh for an available position in the array of playlist.
+     * @return validation: boolean: true if is not there, false if is there.
+     */
     public boolean availablePlaylist(){
         boolean validation = true;
         if(playlist[19] != null){
@@ -143,10 +145,6 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
 
         return validation;
     }
-
-  
-
-
 
     @Override
     public String sharePlaylist(String playlistName) {
@@ -160,7 +158,6 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
         }
         return msj;
     }
-
 
     @Override
     public String playlistMatrix(String playlistName) {
@@ -188,15 +185,56 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
         
     }
 
-
-
-
     @Override
     public String playContent(ProducerContent content) {
-        // TODO Auto-generated method stub
-        return null;
+        String msj = "." + "\n"+ "." + "\n"+ "." +  "\n" + " the audio is playing" + "." + "\n";   ; 
+        if(audios.size()==0){
+
+        }
+        else{
+            int reproduction =audios.size();
+            String ad1 = "Nike -Just Do It" + "\n";
+            String ad2 = "Coca-Cola -Open Happiness" + "\n";
+            String ad3= "M&Ms -  Melts in your mouth" + "\n";
+
+            if(reproduction %2 ==0){
+                int number = generateNumber();
+                switch(number){
+                case 1: 
+                    msj = ad1;
+                    break;
+                case 2:
+                    msj = ad2;
+                    break;
+                case 3:
+                    msj = ad3;
+                    break;
+                }
+            }
+            else{
+                audios.add(content);
+            }
+        }
+
+        return msj;
     }
 
+    /**
+     * generateNumber: This method generates a random number.
+     * @return value : int: Random number. 
+     */
+    public int generateNumber(){
+
+        Random r= new Random();
+       
+         int value = r.nextInt(2 + 1) + 1;
+       
+        return value;
+    }
+    /**
+     * mostSongAmountByUser: String: This method reports the most played song in the app.
+     * @return msj: String : A message with the most listened song.
+     */
     public String mostSongAmountByUser(){
         String msj="";
         int [] geners= {0,0,0,0};
@@ -231,19 +269,19 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
             }
            switch(position){
              case 0:
-             msj="Most listened genre is Rock \n"+"Amount of views: "+geners[position];
+             msj="Most listened genre is Rock \n"+"Amount of Views: "+geners[position];
              break;
              case 1:
-             msj="Most listened genre is Pop \n"+"Amount of views: "+geners[position];
+             msj="Most listened genre is Pop \n"+"Amount of Views: "+geners[position];
              break;
              case 2:
-             msj="Most listened genre is Trap \n"+"Amount of views: "+geners[position];
+             msj="Most listened genre is Trap \n"+"Amount of Views: "+geners[position];
              break;
              case 3:
-             msj="Most listened genre is House \n"+"Amount of views: "+geners[position];
+             msj="Most listened genre is House \n"+"Amount of Views: "+geners[position];
              break;
              case 4:
-             msj="Sorry the song doesn´t exist";
+             msj="Sorry the song doesn't exist";
              break;
            }
            
@@ -254,6 +292,11 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
         return msj;
        }
 
+
+       /**
+     * mostPodcastViews: This method reports the podcast with most Views. 
+     * @return msj: String : A message with the most listened podcast.
+     */
        public String mostPodcastViews(){
         String msj="";
         int [] geners= {0,0,0,0};
@@ -288,19 +331,19 @@ public class Standard extends UserConsumer implements ICreatePlaylist, IEditPlay
             }
            switch(position){
              case 0:
-             msj="the most listened to genre for this user: Politic \n"+"views: "+geners[position];
+             msj="Most listened category: Politic \n"+"Views: "+geners[position];
              break;
              case 1:
-             msj="the most listened to genre for this user: Entertaiment \n"+"views: "+geners[position];
+             msj="Most listened category: Entertaiment \n"+"Views: "+geners[position];
              break;
              case 2:
-             msj="the most listened to genre for this user: Fashion \n"+"views: "+geners[position];
+             msj="Most listened category: Fashion \n"+"Views: "+geners[position];
              break;
              case 3:
-             msj="the most listened to genre for this user: Videogame \n"+"views: "+geners[position];
+             msj="Most listened category: Videogame \n"+"Views: "+geners[position];
              break;
              case 4:
-             msj="the dont exist podcast";
+             msj="This podcast doesn't exist";
              break;
            }
            

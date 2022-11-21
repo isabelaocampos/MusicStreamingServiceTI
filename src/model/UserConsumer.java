@@ -25,9 +25,25 @@ public abstract class UserConsumer extends User{
     public String getId(){
         return this.id;
     }
-
+    /**
+     * sharePlaylist: String: This method is for sharing a playlist to another user.
+     * @param playlistName: String: the name of the playlist we are about to share.
+     * @return: String: a message with the share code.
+     */
     public abstract String sharePlaylist(String playlistName);
+
+    /**
+     * playlistMatrix: String: This method search for the playlist matrix, to generate the code.
+     * @param playlistName: String: the name of the playlist we are about to share.
+     * @return: String: a message with the matrix.
+     */
     public abstract String playlistMatrix(String playlistName);
+
+    /**
+     * printMatrix: String: This method prints a matrix.
+     * @param matrix: int: The matrix to print.
+     * @return: String: Printed matrix.
+     */
     public abstract String printMatrix(int[][] matrix);
 
     

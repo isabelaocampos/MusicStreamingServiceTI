@@ -49,10 +49,6 @@ public class Song extends ProducerContent {
     }
 
 
-    public void setTypeOfGenre(TypeOfGenreSongs typeOfGenre) {
-        this.typeofGenre = typeofGenre;
-    }
-
     public int typeofGenre(){
         switch (typeofGenre) {
             case ROCK:
