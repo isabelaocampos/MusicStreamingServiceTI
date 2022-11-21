@@ -21,6 +21,13 @@ public class Artist extends UserProducer{
         this.songs = songs;
     }
    
+
+    /**
+     * findSongArtist: boolean: This method search for a song of an artist in the array of song 
+     * of that artist
+     * @param song: Song: is the name of the song that we are looking for.
+     * @return: isFound: boolean: If it finds the song will return true, if not it'll return false.
+     */
     public boolean findSongArtist(Song song){
         boolean isFound= false;
         for(int i=0;i<songs.size() && !isFound ;i++){

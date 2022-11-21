@@ -21,6 +21,12 @@ public class ContentCreator extends UserProducer {
         this.podcasts = podcasts;
     }
 
+    /**
+     * findPodcastCreator: boolean: This method search for a podcast of a content creator in the array of podcast 
+     * of that content creator
+     * @param podcast: Podcast: is the name of the podcast that we are looking for.
+     * @return: isFound: boolean: If it finds the podcast will return true, if not it'll return false.
+     */
     public boolean findPodcastCreator(Podcast podcast){
         boolean isFound= false;
         for(int i=0;i<podcasts.size() && !isFound ;i++){

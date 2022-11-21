@@ -9,12 +9,14 @@ public class Controller {
 
     private ArrayList<User> users;
     private ArrayList<ProducerContent> content;
+    private ArrayList<BoughtSong> boughtSongs;
     public static final int ROWS = 6;
     public static final int COLUMNS = 6;
 
     public Controller(){
         users = new ArrayList<User>(10);
         content = new ArrayList<ProducerContent>(40);
+        boughtSongs = new ArrayList<BoughtSong>(10);
 
     }
 
@@ -24,6 +26,10 @@ public class Controller {
 
     public ArrayList<ProducerContent> getContent(){
         return content;
+    }
+
+    public ArrayList<BoughtSong> getBoughtSongs(){
+        return boughtSongs;
     }
 
     public int[][] createMatrix(){
@@ -141,27 +147,27 @@ public class Controller {
 
             switch(typeOfGenreSong){
                 case ROCK:
-                content.add(new Song(contentname, imageURL, duration, album, price));
+                content.add(new Song(contentname, imageURL, duration, album, price, 1));
                 
-                artist.getSongs().add(new Song(contentname, imageURL, duration, album, price));
+                artist.getSongs().add(new Song(contentname, imageURL, duration, album, price, 1));
                 msj = "Song added successfully";
                 
                 break;
                 case POP:
-                content.add(new Song(contentname, imageURL, duration, album, price));
-                artist.getSongs().add(new Song(contentname, imageURL, duration, album, price));
+                content.add(new Song(contentname, imageURL, duration, album, price,2));
+                artist.getSongs().add(new Song(contentname, imageURL, duration, album, price,2));
                 msj = "Song added successfully";
     
                 break;
                 case TRAP:
-                content.add(new Song(contentname, imageURL, duration, album, price));
-                artist.getSongs().add(new Song(contentname, imageURL, duration, album, price));
+                content.add(new Song(contentname, imageURL, duration, album, price,3));
+                artist.getSongs().add(new Song(contentname, imageURL, duration, album, price,3));
                 msj = "Song added successfully";
     
                 break;
                 case HOUSE:
-                content.add(new Song(contentname, imageURL, duration, album, price));
-                artist.getSongs().add(new Song(contentname, imageURL, duration, album, price));
+                content.add(new Song(contentname, imageURL, duration, album, price,4));
+                artist.getSongs().add(new Song(contentname, imageURL, duration, album, price,4));
                 msj = "Song added successfully";
     
                 break;
@@ -200,26 +206,26 @@ public class Controller {
 
             switch(typeOfCategoryPodcast){
                 case POLITICS:
-                content.add(new Podcast(contentname, imageURL, duration, description));
-                contentCreator.getPodcasts().add(new Podcast(contentname, imageURL, duration, description));
+                content.add(new Podcast(contentname, imageURL, duration, description,1));
+                contentCreator.getPodcasts().add(new Podcast(contentname, imageURL, duration, description,1));
                 msj = "Podcast added successfully";
                 
                 break;
                 case ENTERTAINMENT:
-                content.add(new Podcast(contentname, imageURL, duration, description));
-                contentCreator.getPodcasts().add(new Podcast(contentname, imageURL, duration, description));
+                content.add(new Podcast(contentname, imageURL, duration, description,2));
+                contentCreator.getPodcasts().add(new Podcast(contentname, imageURL, duration, description,2));
                 msj = "Podcast added successfully";
     
                 break;
                 case VIDEOGAMES:
-                content.add(new Podcast(contentname, imageURL, duration, description));
-                contentCreator.getPodcasts().add(new Podcast(contentname, imageURL, duration, description));
+                content.add(new Podcast(contentname, imageURL, duration, description,3));
+                contentCreator.getPodcasts().add(new Podcast(contentname, imageURL, duration, description,3));
                 msj = "Podcast added successfully";
     
                 break;
                 case FASHION:
-                content.add(new Podcast(contentname, imageURL, duration, description));
-                contentCreator.getPodcasts().add(new Podcast(contentname, imageURL, duration, description));
+                content.add(new Podcast(contentname, imageURL, duration, description,4));
+                contentCreator.getPodcasts().add(new Podcast(contentname, imageURL, duration, description,4));
                 msj = "Podcast added successfully";
     
                 break;
@@ -353,35 +359,7 @@ public class Controller {
 
     }
 
-    /* 
-    public String buySong(String nickname, String audioName){
-        String msj = "";
-        UserConsumer user = findUserConsumer(nickname);
-        ProducerContent audio = findAudio(audioName);
-        if(user == null){
-            msj = "This user doesn't exist, try again";
-        }else{
-            if(user instanceof Standard){
-                if(audio instanceof Song){
-                    
-                }else{
-                    msj = "Sorry, we don't sale podcasts, but you can play them in option 7";
-                }
-            }else if(user instanceof Premium){
-                if(audio instanceof Song){
-                    
-                }else{
-                    msj = "Sorry, we don't sale podcasts, but you can play them in option 7";
-                }
-            }else{
-                msj = "This user is not a user consumer";
-            }
-        }
-
-        return msj;
-    }
-
-    */
+   
     public String sharePlaylist(String nickname, String namePlaylist){
         String numberCode = "";
 
@@ -440,7 +418,7 @@ public class Controller {
         return msj;
 
     }
-/* 
+
     public String buySong(String nickname, String songName){
 
         String msj = ""; 
@@ -459,20 +437,20 @@ public class Controller {
                 if(newAudio instanceof Song){
                     Song newSong = ( (Song)(newAudio) );
                     if(user instanceof Standard){
-                        int numBuys = countBuysForUser(nickname);
-                        if(numBuys<100){
-                            Shop newShop = new Shop(dateActual(), nickname, songName); 
-                            shops.add(newShop); 
-                            newSong.setNumberSales(newSong.getNumberSales()+1);
+                        int userSongsBought = countBuysForUser(nickname);
+                        if(userSongsBought<100){
+                            BoughtSong newBSong = new BoughtSong(date(), nickname, songName); 
+                            boughtSongs.add(newBSong); 
+                            newSong.setSongSales(newSong.getSongSales()+1);
 
                         }else{
                             msj = "the purchasing limit has been reached "; 
                         }
 
                     } else if( user instanceof Premium){
-                        Shop newShop = new Shop(dateActual(), nickname, songName); 
-                        shops.add(newShop); 
-                        newSong.setNumberSales(newSong.getNumberSales()+1);
+                        BoughtSong newBSong = new BoughtSong(date(), nickname, songName); 
+                        boughtSongs.add(newBSong); 
+                        newSong.setSongSales(newSong.getSongSales()+1);
 
                     }
                 }
@@ -489,7 +467,244 @@ public class Controller {
         return msj; 
 
     }
-*/
+
+    public String accumulatedViews(){
+        String msj = ""; 
+        int totalViews=0;
+        if(content.size()!=0){
+            for(int i=0;i<content.size();i++){
+            totalViews+=content.get(i).getView();
+            }
+        }
+        msj = "The accumulated Views is:  " + totalViews ;
+        return msj;
+    }
+
+    public String mostViewSongForUser(String nickname){
+        String msj = ""; 
+        User user = findUserConsumer(nickname);
+
+        if(user == null){
+            msj = "this user doesnt exist";
+        }
+        else{
+
+            if(user instanceof Standard){
+                Standard standard = ((Standard)(user)); 
+                 msj=mostSongViews() + standard.mostSongAmountByUser();
+            }
+            else if(user instanceof Premium){
+                Premium premium = ((Premium)(user)); 
+                 msj=mostSongViews() + premium.mostSongAmountByUser();
+
+            }
+            else{
+                msj="you must enter a user type consumer";
+            }
+        }
+    return msj;
+
+    }
+
+    public String mostViewPodcastForUser(String nickname){
+        String msj = ""; 
+        User user = findUserConsumer(nickname);
+
+        if(user == null){
+            msj = "this user doesnt exist";
+        }
+        else{
+
+            if(user instanceof Standard){
+                Standard standard = (Standard) user; 
+                 msj=mostPodcastViews() + standard.mostPodcastViews();
+            }
+            else if(user instanceof Premium){
+                Premium premium = ( Premium) user; 
+                msj=mostPodcastViews() + premium.mostPodcastViews();
+
+            }
+            else{
+                msj="you must enter a user type consumer";
+            }
+        }
+        return msj;
+    }
+
+    public String mostSongViews(){
+      String msj="";
+      int [] geners= {0,0,0,0};
+      int position=0;
+       if(content.size()!=0){
+         for(int i=0; i<content.size();i++){
+           if(content.get(i) instanceof Song){
+             Song song = ( (Song)(content.get(i)) );
+             switch(song.typeofGenre()){
+               case 1:
+                geners[0]++;
+                break;
+               case 2:
+               geners[1]++;
+                break;
+               case 3:
+               geners[2]++;
+                break;
+               case 4:
+               geners[3]++;
+                break;
+               default:
+                break;
+             }
+           }
+         }
+         int mayor=0;
+          for(int i=0; i<4;i++){
+           if(geners[i]>mayor){
+             position=i;
+           }
+          }
+         switch(position){
+           case 0:
+           msj="Most listened genre is rock \n"+"Views: "+geners[position];
+           break;
+           case 1:
+           msj="Most listened genre is pop \n"+"Views: "+geners[position];
+           break;
+           case 2:
+           msj="Most listened genre is trap \n"+"Views: "+geners[position];
+           break;
+           case 3:
+           msj="Most listened genre is house \n"+"Views: "+geners[position];
+           break;
+           case 4:
+           msj="the dont exist song";
+           break;
+         }
+         
+       }
+       else{
+         msj="the user dont have reproduction";
+       }
+      return msj;
+     }
+
+     public String mostPodcastViews(){
+      String msj="";
+      int [] geners= {0,0,0,0};
+      int position=0;
+       if(content.size()!=0){
+         for(int i=0; i<content.size();i++){
+           if(content.get(i) instanceof Podcast){
+            Podcast podcast = ( (Podcast)(content.get(i)) );
+             switch(podcast.typeOfCategory()){
+               case 1:
+                geners[0]++;
+                break;
+               case 2:
+               geners[1]++;
+                break;
+               case 3:
+               geners[2]++;
+                break;
+               case 4:
+               geners[3]++;
+                break;
+               default:
+                break;
+             }
+           }
+         }
+         int mayor=0;
+          for(int i=0; i<4;i++){
+           if(geners[i]>mayor){
+             position=i;
+           }
+          }
+         switch(position){
+           case 0:
+           msj="Most listened category is Politic \n"+"Views: "+geners[position];
+           break;
+           case 1:
+           msj="Most listened category is Entertaiment \n"+"Views: "+geners[position];
+           break;
+           case 2:
+           msj="Most listened category is Fashion \n"+"Views: "+geners[position];
+           break;
+           case 3:
+           msj="Most listened category is Videogame \n"+"Views: "+geners[position];
+           break;
+           case 4:
+           msj="the dont exist podcast";
+           break;
+         }
+         
+       }
+       else{
+         msj="the user dont have reproduction";
+       }
+      return msj;
+     }
+
+     public String infoSongsSold(){
+        String msj = ""; 
+        int countRock = 0;
+        int countPop =0;
+        int countTrap =0;
+        int countHouse =0; 
+        if(content.size()!=0){
+                for(int i =0; i< content.size(); i++){
+                    if(content.get(i) instanceof Song){
+                        Song song = ( (Song)(content.get(i)) );
+                        switch(song.typeofGenre()){
+                         case 1:
+                          countRock += song.getSongSales(); 
+                          break;
+                         case 2:
+                         countPop += song.getSongSales(); 
+                          break;
+                         case 3:
+                         countTrap += song.getSongSales(); 
+                          break;
+                         case 4:
+                         countHouse += song.getSongSales(); 
+                          break;
+    
+                         default:
+                          break;
+                       }
+    
+                    }
+                }
+            }else{
+                 msj="There is no content in the platform";
+            }
+    
+            msj = "Sales per genre: \n" +
+                "Rock: " + countRock + "\n"+
+                "Pop: " +  countPop + "\n"+
+                "Trap: " + countTrap +"\n"+
+                "House: "+ countHouse + "\n"; 
+            return msj; 
+    
+       }
+
+       public String totalSalesSongs(){
+        String msj = ""; 
+        double totalSales = 0.0; 
+        if(content.size()!=0){
+                for(int i =0; i< content.size(); i++){
+                    if(content.get(i) instanceof Song){
+                        Song song = ( (Song)(content.get(i)) );
+                        totalSales += song.getSongSales() *  song.getPrice(); 
+                    }
+                }
+            }else{
+                msj="There is no content in the platform";
+            }
+            msj = "Total sales is " + totalSales; 
+            return msj; 
+       }
+
     //////////////////////////////////////////////////
 
     public int generateNumber(){
@@ -649,6 +864,20 @@ public class Controller {
     
             }
         }
+
+    public int countBuysForUser(String nickname){
+        int count =0; 
+        if(boughtSongs.size() != 0){
+    
+            for(int i = 0; i <boughtSongs.size(); i++ ){
+                boughtSongs.get(i).getNickname().equalsIgnoreCase(nickname);
+                count++;
+            }
+    
+        }
+        return count; 
+    
+        } 
 
 }
 

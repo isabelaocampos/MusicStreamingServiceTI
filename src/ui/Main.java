@@ -58,8 +58,7 @@ public class Main{
     public void executeOption(int option){
         int typeOfUser, duration, typeOfContent, typeOfGenreSong, typeOfCategoryPodcast, typeOfPlaylist, typeOfEdition, typeOfReport = 0;
         double price = 0;
-        String a, msj, name, imageURL, nickname, contentname, album, description, playlistName, songName, audioToPlay, id= "";
-        Calendar vinculationDate = dateToday();
+        String  msj, name, imageURL, nickname, contentname, album, description, playlistName, songName, audioToPlay, id= "";
     
 
         switch(option){
@@ -69,31 +68,37 @@ public class Main{
             System.out.println("Choose the type of user you are about to register: ");
             System.out.println("1. Artist \n" +
             "2. Content Creator");
-            typeOfUser = reader.nextInt();
-            if(typeOfUser == 1){
-                System.out.println("Write the name of the artist:");
-				name = reader.next();
-				System.out.println("Write the URL of the image that represents the artist the best: ");
-				imageURL = reader.next();
-				
-				msj = controller.addUserProducer(name,imageURL, TypeOfUserProducer.ARTIST);
-				System.out.println(msj);
-
-
-            }else if(typeOfUser == 2){
-                System.out.println("Write the name of the content creator: ");
-				name = reader.next();
-
-				System.out.println("Write the URL of the image that represents the content creator the best: ");
-				imageURL = reader.next();
-				
-				msj = controller.addUserProducer(name,imageURL, TypeOfUserProducer.CONTENTCREATOR);
-				System.out.println(msj);
-
-            }else{
-                System.out.println("Invalid Option");
-
+            typeOfUser = validateIntegerInput();
+            if((typeOfUser==2||typeOfUser==1) && typeOfUser != -1){
+                if(typeOfUser == 1){
+                    System.out.println("Write the name of the artist:");
+                    name = reader.next();
+                    System.out.println("Write the URL of the image that represents the artist the best: ");
+                    imageURL = reader.next();
+                    
+                    msj = controller.addUserProducer(name,imageURL, TypeOfUserProducer.ARTIST);
+                    System.out.println(msj);
+    
+    
+                }else if(typeOfUser == 2){
+                    System.out.println("Write the name of the content creator: ");
+                    name = reader.next();
+    
+                    System.out.println("Write the URL of the image that represents the content creator the best: ");
+                    imageURL = reader.next();
+                    
+                    msj = controller.addUserProducer(name,imageURL, TypeOfUserProducer.CONTENTCREATOR);
+                    System.out.println(msj);
+    
+                }else{
+                    System.out.println("Invalid Option");
+    
+                }
             }
+             else{
+                System.out.println("Invalid Option");
+             }
+           
 
             break;
             case 2:
@@ -102,109 +107,122 @@ public class Main{
             System.out.println("Choose the type of user you are about to register: ");
             System.out.println("1. Standard \n" +
             "2. Premium");
-            typeOfUser = reader.nextInt();
-            if(typeOfUser == 1){
-                System.out.println("Write the nickname of the new user:");
-				nickname = reader.next();
-				System.out.println("Write the id (cedula) of the new user(example. 100023434): ");
-				id = reader.next();
-
-				msj = controller.addUserConsumer(nickname,id, TypeOfUserConsumer.STANDARD);
-				System.out.println(msj);
-
-
-            }else if(typeOfUser == 2){
-                System.out.println("Write the nickname of the new user:");
-				nickname = reader.next();
-				System.out.println("Write the id (cedula) of the new user(example. 100023434): ");
-				id = reader.next();
-
-				msj = controller.addUserConsumer(nickname,id, TypeOfUserConsumer.PREMIUM);
-				System.out.println(msj);
-
-            }else{
-                System.out.println("Invalid Option");
-
-            }
+            typeOfUser = validateIntegerInput();
+            if((typeOfUser==2 || typeOfUser==1) && typeOfUser != -1){
+                if(typeOfUser == 1){
+                    System.out.println("Write the nickname of the new user:");
+                    nickname = reader.next();
+                    System.out.println("Write the id (cedula) of the new user(example. 100023434): ");
+                    id = reader.next();
+    
+                    msj = controller.addUserConsumer(nickname,id, TypeOfUserConsumer.STANDARD);
+                    System.out.println(msj);
+    
+    
+                }else if(typeOfUser == 2){
+                    System.out.println("Write the nickname of the new user:");
+                    nickname = reader.next();
+                    System.out.println("Write the id (cedula) of the new user(example. 100023434): ");
+                    id = reader.next();
+    
+                    msj = controller.addUserConsumer(nickname,id, TypeOfUserConsumer.PREMIUM);
+                    System.out.println(msj);
+    
+                }else{
+                    System.out.println("Invalid Option");
+    
+                }
+            } else{
+               System.out.println("Invalid Option");
+            } 
+            
             
             break;
             case 3:
             System.out.println("Choose the type of content you are adding: ");
             System.out.println("1. A song \n" +
             "2. A podcast");
-            typeOfContent = reader.nextInt();
-
-            if(typeOfContent == 1){
-                System.out.println("You are know adding a song, please write the name of the artist: ");
-                name = reader.next();
-                System.out.println("Write the name of the song you are creating: ");
-                contentname = reader.next();
-                System.out.println("Write the duration of the song you are adding (Example. 3:44 -> 344): ");
-                duration = reader.nextInt();
-                System.out.println("Write the URL of the image that represents the album: ");
-                imageURL = reader.next();
-                System.out.println("Write the name of the album whom the song belongs: ");
-                album = reader.next(); 
-                System.out.println("Write the price of the song: ");
-                price= reader.nextDouble();
-                System.out.println("Choose the genre of the song you are adding: ");
-                System.out.println("1. Rock \n" +
-                "2. Pop \n" +
-                "3. Trap \n"+
-                "4. House");
-                typeOfGenreSong = reader.nextInt();
-                if(typeOfGenreSong == 1){
-                    System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.ROCK));
-
-                }else if(typeOfGenreSong == 2){
-                    System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.POP));
-
-                }else if(typeOfGenreSong == 3){
-                    System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.TRAP));
-
-                }else if(typeOfGenreSong == 4){
-                    System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.HOUSE));
-
-                 }else{
-                    System.out.println("Sorry, this is not a valid option");
-
-                }
-            }else if(typeOfContent == 2){
-                System.out.println(" You are know adding a podcast, please write the name of the content creator: ");
-                name= reader.next();
-                System.out.println("Write the name of the podcast: ");
-                contentname = reader.next();
-                System.out.println("Write the imageURL that represents the podcast: ");
-                imageURL = reader.next();
-                System.out.println("Write the duration of the podcast (Example. 10:34 -> 1034): ");
-                duration = reader.nextInt();
-                System.out.println("Write the description of the podcast");
-                description= reader.next();
-                System.out.println("Choose the genre of the podcast you are adding: ");
-                System.out.println("1. Politics \n" +
-                "2. Entertainment \n" +
-                "3. Videogames \n"+
-                "4. Fashion");
-                typeOfCategoryPodcast = reader.nextInt();
-                if(typeOfCategoryPodcast == 1){
-                    System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.POLITICS));
-
-                 }else if(typeOfCategoryPodcast == 2){
-                    System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.ENTERTAINMENT));
-
-                 }else if(typeOfCategoryPodcast == 3){
-                    System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.VIDEOGAMES));
-
-                 }else if(typeOfCategoryPodcast == 4){
-                    System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.FASHION));
-
-                 }else{
-                    System.out.println("Sorry this is not a valid option");
-                 }
-                }else{
-                    System.out.println("Sorry, an error happen");
-                }
+            typeOfContent = validateIntegerInput();
             
+            if((typeOfContent==2 || typeOfContent==1) && typeOfContent != -1){
+
+                if(typeOfContent == 1){
+                    System.out.println("You are know adding a song, please write the name of the artist: ");
+                    name = reader.next();
+                    System.out.println("Write the name of the song you are creating: ");
+                    contentname = reader.next();
+                    System.out.println("Write the duration of the song you are adding (Example. 3:44 -> 344): ");
+                    duration = reader.nextInt();
+                    System.out.println("Write the URL of the image that represents the album: ");
+                    imageURL = reader.next();
+                    System.out.println("Write the name of the album whom the song belongs: ");
+                    album = reader.next(); 
+                    System.out.println("Write the price of the song: ");
+                    price= validateDoubleInput();
+		            if(price == -1){
+		        	System.out.println("Invalid Option"); 
+		        	}
+                    System.out.println("Choose the genre of the song you are adding: ");
+                    System.out.println("1. Rock \n" +
+                    "2. Pop \n" +
+                    "3. Trap \n"+
+                    "4. House");
+                    typeOfGenreSong = reader.nextInt();
+                    if(typeOfGenreSong == 1){
+                        System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.ROCK));
+    
+                    }else if(typeOfGenreSong == 2){
+                        System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.POP));
+    
+                    }else if(typeOfGenreSong == 3){
+                        System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.TRAP));
+    
+                    }else if(typeOfGenreSong == 4){
+                        System.out.println(controller.addSong(contentname, name, album, imageURL, duration, price, TypeOfGenreSongs.HOUSE));
+    
+                     }else{
+                        System.out.println("Sorry, this is not a valid option");
+    
+                    }
+                }else if(typeOfContent == 2){
+                    System.out.println(" You are know adding a podcast, please write the name of the content creator: ");
+                    name= reader.next();
+                    System.out.println("Write the name of the podcast: ");
+                    contentname = reader.next();
+                    System.out.println("Write the imageURL that represents the podcast: ");
+                    imageURL = reader.next();
+                    System.out.println("Write the duration of the podcast (Example. 10:34 -> 1034): ");
+                    duration = reader.nextInt();
+                    System.out.println("Write the description of the podcast");
+                    description= reader.next();
+                    System.out.println("Choose the genre of the podcast you are adding: ");
+                    System.out.println("1. Politics \n" +
+                    "2. Entertainment \n" +
+                    "3. Videogames \n"+
+                    "4. Fashion");
+                    typeOfCategoryPodcast = reader.nextInt();
+                    if(typeOfCategoryPodcast == 1){
+                        System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.POLITICS));
+    
+                     }else if(typeOfCategoryPodcast == 2){
+                        System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.ENTERTAINMENT));
+    
+                     }else if(typeOfCategoryPodcast == 3){
+                        System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.VIDEOGAMES));
+    
+                     }else if(typeOfCategoryPodcast == 4){
+                        System.out.println(controller.addPodcast(contentname, name, description, imageURL, duration, TypeOfCategoryPodcast.FASHION));
+    
+                     }else{
+                        System.out.println("Sorry this is not a valid option");
+                     }
+                    }else{
+                        System.out.println("Sorry, an error happen");
+                    }
+             } else{
+                System.out.println("enter a available option... :(");
+             } 
+
             break;
             case 4: 
             System.out.println("You are know creating a playlist");
@@ -216,8 +234,15 @@ public class Main{
             System.out.println("1. Just Songs \n" +
             "2.Just podcasts \n" +
             "3.Podcast and Songs");
-            typeOfPlaylist = reader.nextInt();
-            System.out.println(controller.addPlaylist(nickname, playlistName, typeOfPlaylist));
+            typeOfPlaylist = validateIntegerInput();
+		        if(typeOfPlaylist>4|| typeOfPlaylist<1){
+		            System.out.println("Invalid Option");
+		        }
+		        else{
+                    System.out.println(controller.addPlaylist(nickname, playlistName, typeOfPlaylist));
+		        }
+
+           
 
             break;
 
@@ -228,14 +253,19 @@ public class Main{
             System.out.println("Choose the option you want");
             System.out.println("1. Add audio to the playlist \n" +
             "2. Delete audio of playlist");
-            typeOfEdition = reader.nextInt();
-            System.out.println("Write the playlist name: ");
-            playlistName = reader.next();
-            System.out.println("Write the name of the audio: ");
-            contentname = reader.next();
-
-            System.out.println(controller.editAudioToPlaylist(typeOfEdition, nickname, playlistName, contentname));
-
+            typeOfEdition = validateIntegerInput(); 
+            if((typeOfEdition==1 || typeOfEdition==2) && typeOfEdition != -1){
+                System.out.println("Write the playlist name: ");
+                playlistName = reader.next();
+                System.out.println("Write the name of the audio: ");
+                contentname = reader.next();
+    
+                System.out.println(controller.editAudioToPlaylist(typeOfEdition, nickname, playlistName, contentname));
+       
+             }else{
+                System.out.println("Invalid Option");
+             }
+            
             break;
 
             case 6:
@@ -254,13 +284,12 @@ public class Main{
             System.out.println("Write the nickname of the user");
             nickname = reader.next();
 
-            System.out.println("What do you want to play, choose an option");
             System.out.println("Write the name of the song or podcast: ");
             audioToPlay = reader.next();
 
             msj = controller.playingAudio(nickname, audioToPlay);
             
-            
+            System.out.println(msj);
             break;
             
             case 8: 
@@ -269,6 +298,9 @@ public class Main{
             nickname = reader.next();
             System.out.println("Write the name of the song you want to buy");
             songName = reader.next();
+
+            msj = controller.buySong(nickname, songName);
+            System.out.println(msj);
             
 
             break;
@@ -288,8 +320,42 @@ public class Main{
             switch(typeOfReport){
 
                 case 1:
-
+                msj = controller.accumulatedViews() ;
+                System.out.println(msj);
                 break;
+                case 2:
+                System.out.println("Write the user nickname: ");
+                nickname = reader.next();
+                msj = controller.mostViewSongForUser(nickname);
+                System.out.println(msj);
+                break;
+
+                case 3:
+                System.out.println("Write the user nickname: ");
+                nickname = reader.next();
+                msj = controller.mostViewPodcastForUser(nickname);
+                System.out.println(msj);
+                break;
+
+
+                case 6:
+                msj ="" ;
+                System.out.println(msj);
+                break;
+
+                case 7:
+                msj ="" ;
+                System.out.println(msj);
+                break;
+
+                case 8:
+                System.out.println("Write the user nickname: ");
+                nickname = reader.next();
+                System.out.println(controller.accumulatedViews());
+                System.out.println(controller.mostViewSongForUser(nickname));
+                System.out.println(controller.mostViewPodcastForUser(nickname));
+                break;
+
 
                 default:
 
@@ -312,11 +378,41 @@ public class Main{
 
     ////////////////
 
-    public Calendar dateToday(){
-        
-        Calendar calendar=new GregorianCalendar(2022,Calendar.NOVEMBER,8);
-        return calendar ;
-         
-    }
+    /**
+	 * validateIntergerInput: This method validates that the input is an interger
+	 * @return option: Is the input by the user or the number -1 to represent that is not an interger 
+	 */
+    public int validateIntegerInput(){
+		int option = 0; 
+
+		if(reader.hasNextInt()){
+			option = reader.nextInt(); 
+		}
+		else{ 
+			reader.nextLine(); 
+			option = -1; 
+		}
+
+		return option; 
+	}
+
+	/**
+	 * validateDoubleInput: This method validates that the input is a double
+	 * @return option: Is the input by the user or the number -1 to represent that is not a double
+	 */
+
+	public double validateDoubleInput(){
+		double option = 0; 
+
+		if(reader.hasNextDouble()){
+			option = reader.nextDouble(); 
+		}
+		else{
+			reader.nextLine(); 
+			option = -1; 
+		}
+
+		return option; 
+	}
 
 }
